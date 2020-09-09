@@ -25,12 +25,24 @@ class Scraper:
         self.total_products_count = 8
 
     def search(self):
+        amazon_start_time = time.time()
         amazon_products_data = self.search_amazon()
         print(amazon_products_data)
+        amazon_end_time = time.time()
+
+        flipkart_start_time = time.time()
         flipkart_products_data = self.search_flipkart()
         print(flipkart_products_data)
+        flipkart_end_time = time.time()
+
+        mdcomputers_start_time = time.time()
         mdcomputers_products_data = self.search_mdcomputers()
         print(mdcomputers_products_data)
+        mdcomputers_end_time = time.time()
+
+        print("Time to scrape Amazon =", amazon_end_time - amazon_start_time)
+        print("Time to scrape Flipkart =", flipkart_end_time - flipkart_start_time)
+        print("Time to scrape MDComputers =", mdcomputers_end_time - mdcomputers_start_time)
 
     def search_amazon(self):
         self.browser.get('https://www.amazon.in/')
@@ -215,4 +227,4 @@ t1 = time.time()
 scraper = Scraper('rtx 2060')
 scraper.search()
 
-print('Total Time taken to complete:', time.time() - t1)
+print('Total Time taken to complete scraping =', time.time() - t1)

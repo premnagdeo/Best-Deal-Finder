@@ -1,63 +1,84 @@
+import requests
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 from collections import defaultdict
+
 
 
 class Scraper:
 
     def __init__(self, product):
-        # Initialize Options to start Chrome as headless in selenium
-        self.chrome_options = webdriver.ChromeOptions()
-        self.chrome_options.add_argument("--headless")
-        self.capabilities = DesiredCapabilities.CHROME.copy()
-        self.capabilities['acceptSslCerts'] = True
-        self.capabilities['acceptInsecureCerts'] = True
 
-        # Initialize the chrome webdriver as 'browser'
-        # self.browser = webdriver.Chrome(options=self.chrome_options, desired_capabilities=self.capabilities)
 
-        # To initialize the webdriver in a new window for Debugging:
-        self.browser = webdriver.Chrome('chromedriver.exe')
 
         self.product = product
         self.total_products_count = 5
 
     def search(self):
-        amazon_start_time = time.time()
-        amazon_products_data = self.search_amazon()
-        amazon_end_time = time.time()
+        # amazon_start_time = time.time()
+        # amazon_products_data = self.search_amazon()
+        # amazon_end_time = time.time()
+
 
         flipkart_start_time = time.time()
         flipkart_products_data = self.search_flipkart()
         flipkart_end_time = time.time()
 
-        mdcomputers_start_time = time.time()
-        mdcomputers_products_data = self.search_mdcomputers()
-        mdcomputers_end_time = time.time()
+        # mdcomputers_start_time = time.time()
+        # mdcomputers_products_data = self.search_mdcomputers()
+        # mdcomputers_end_time = time.time()
 
-        master_data = {'amazon_products_data': amazon_products_data, 'flipkart_products_data': flipkart_products_data, 'mdcomputers_products_data': mdcomputers_products_data}
-        print(master_data)
+        # master_data = {'amazon_products_data': amazon_products_data, 'flipkart_products_data': flipkart_products_data, 'mdcomputers_products_data': mdcomputers_products_data}
+        # print(master_data)
+
+        # Debug
+        # print(amazon_products_data)
+        print(flipkart_products_data)
 
         # Times
-        print("Time to scrape Amazon =", amazon_end_time - amazon_start_time)
+        # print("Time to scrape Amazon =", amazon_end_time - amazon_start_time)
         print("Time to scrape Flipkart =", flipkart_end_time - flipkart_start_time)
-        print("Time to scrape MDComputers =", mdcomputers_end_time - mdcomputers_start_time)
+        # print("Time to scrape MDComputers =", mdcomputers_end_time - mdcomputers_start_time)
+
+
 
     def search_amazon(self):
         try:
-            self.browser.get('https://www.amazon.in/')
+            # Define headers for request
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
+            '''
+            url_list = ['https://www.amazon.in/s?k=']
+            search_list = self.product.split()
+            for word in search_list:
+                url_list.append(word)
+                url_list.append('+')
 
-            search_bar = self.browser.find_element_by_id('twotabsearchtextbox')
-            search_bar.send_keys(self.product)
-            search_bar.submit()
-            time.sleep(5)
+            url = "".join(url_list[:-1])
+            '''
+            url = 'https://www.amazon.in/s?k=' + self.product
+            response = requests.get(url, headers=headers)
 
-            src = self.browser.page_source
-            soup = BeautifulSoup(src, 'html.parser')
+
+            soup = BeautifulSoup(response.content, 'html.parser')
 
             main_div = soup.find('div', {'class': 's-main-slot s-result-list s-search-results sg-row'})
+            retry_count = 0
+
+            # If the results are not present, retry by sending a request again until we hit the retry limit
+            if main_div is None:
+
+                retry_limit = 10
+                while retry_count < retry_limit and main_div is None:
+
+                    response = requests.get(url, headers=headers)
+                    soup = BeautifulSoup(response.content, 'html.parser')
+                    main_div = soup.find('div', {'class': 's-main-slot s-result-list s-search-results sg-row'})
+
+                    retry_count += 1
+
+            # If we still did not receive the results, return -1 as amazon not reachable
+            if main_div is None:
+                return -1
 
             amazon_products_data = defaultdict(dict)
 
@@ -113,71 +134,35 @@ class Scraper:
             return -1
 
     def search_flipkart(self):
-        try:
-            self.browser.get('https://www.flipkart.com/')
+        # try:
 
-            time.sleep(5)
-            # Skip login prompt if it pops up:
-            try:
-                close_login_prompt_button = self.browser.find_element_by_xpath("/html/body/div[2]/div/div/button")
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
 
-                close_login_prompt_button.click()
-            except Exception as e:
-                print("Exception when tried to close login pop up:", e)
+            url_list = ['https://www.flipkart.com/search?q=']
+            search_list = self.product.split()
+            for word in search_list:
+                url_list.append(word)
+                url_list.append('%20')
+            url = "".join(url_list[:-1])
 
-            search_bar = self.browser.find_element_by_class_name('LM6RPg')
+            response = requests.get(url, headers=headers)
+            # print(response.content)
+            soup = BeautifulSoup(response.content, 'html.parser')
+            # print(soup.prettify())
 
-            search_bar.send_keys(self.product)
-            search_bar.submit()
-            time.sleep(5)
+            all_divs = soup.find_all('div', {'class': 'bhgxx2 col-12-12'})
 
-            src = self.browser.page_source
-            soup = BeautifulSoup(src, 'html.parser')
 
-            items_div = soup.find_all('div', {'class': '_3O0U0u'})
+            for div in all_divs:
+                print(div.prettify())
+                print("NEXT")
 
-            flipkart_products_data = defaultdict(dict)
-            loop_range = min(self.total_products_count, len(items_div))
-            for count in range(loop_range):
-
-                item_div = items_div[count]
-
-                # Get the name
-                item_name = item_div.find('div', {'class': '_3wU53n'}).get_text().strip()
-                if item_name[-3:] == '...':
-                    item_name = item_name[:-3]
-                flipkart_products_data[count]['item_name'] = item_name
-
-                # Get the rating
-                item_rating = item_div.find('div', {'class': 'hGSR34'})
-                if item_rating is not None:
-                    flipkart_products_data[count]['item_rating'] = "".join([item_rating.get_text().strip(), '/5'])
-                else:
-                    flipkart_products_data[count]['item_rating'] = 'Unavailable'
-
-                # Get the price
-                item_price = item_div.find('div', {'class': '_1vC4OE _2rQ-NK'})
-                if item_price is not None:
-                    # Remove the rupees symbol at the beginning
-                    # Get rid of commas in the string
-                    item_price = item_price.get_text().strip()[1:].replace(',', '')
-                    flipkart_products_data[count]['item_price'] = item_price
-                else:
-                    flipkart_products_data[count]['item_price'] = 'Unavailable'
-
-                # Get the link
-                item_link = item_div.find('a', {'class': '_31qSD5'})
-                flipkart_products_data[count]['item_link'] = "".join(['https://www.flipkart.com', item_link['href']])
-
-            return flipkart_products_data
-
-        except Exception as e:
-            # Could not fetch data from Flipkart
-            return -1
+        # except Exception as e:
+        #     # Could not fetch data from Flipkart
+        #     return -1
 
     def search_mdcomputers(self):
-
-        try:
+        # try:
             self.browser.get('https://mdcomputers.in/')
 
             search_bar = self.browser.find_element_by_xpath('/html/body/div[1]/header/div[2]/div/div/div[2]/div[1]/div/form/div/input')
@@ -231,14 +216,27 @@ class Scraper:
 
             return mdcomputers_products_data
 
-        except Exception as e:
-            # Could not fetch data from MDComputers
-            return -1
+        # except Exception as e:
+        #     # Could not fetch data from MDComputers
+        #     return -1
 
+
+'''
+tt = time.time()
+for t in range(10):
+
+    t1 = time.time()
+
+    scraper = Scraper('rtx 2060')
+    scraper.search()
+
+    print("Total Time taken to complete scraping test {} = {}".format(t, time.time() - t1))
+
+print("Total Time taken to complete scraping", time.time() - tt)
+
+'''
 
 t1 = time.time()
-
-scraper = Scraper('rtx 2060')
+scraper = Scraper('rtx')
 scraper.search()
-
-print('Total Time taken to complete scraping =', time.time() - t1)
+print("Total Time taken to complete scraping test = {}".format(time.time() - t1))

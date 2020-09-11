@@ -19,11 +19,10 @@ class Scraper:
         amazon_products_data = self.search_amazon()
         amazon_end_time = time.time()
 
+        flipkart_start_time = time.time()
+        flipkart_products_data = self.search_flipkart()
+        flipkart_end_time = time.time()
 
-        # flipkart_start_time = time.time()
-        # flipkart_products_data = self.search_flipkart()
-        # flipkart_end_time = time.time()
-        #
         # mdcomputers_start_time = time.time()
         # mdcomputers_products_data = self.search_mdcomputers()
         # mdcomputers_end_time = time.time()
@@ -33,19 +32,19 @@ class Scraper:
 
         # Debug
         print(amazon_products_data)
-        # print(flipkart_products_data)
+        print(flipkart_products_data)
 
         # Times
         print("Time to scrape Amazon =", amazon_end_time - amazon_start_time)
-        # print("Time to scrape Flipkart =", flipkart_end_time - flipkart_start_time)
+        print("Time to scrape Flipkart =", flipkart_end_time - flipkart_start_time)
         # print("Time to scrape MDComputers =", mdcomputers_end_time - mdcomputers_start_time)
 
 
 
     def search_amazon(self):
-        # try:
-            # Define headers for request
+        try:
 
+            # Define headers for request
             user_agent_list = [
                 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.1.1 Safari/605.1.15',
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:77.0) Gecko/20100101 Firefox/77.0',
@@ -63,8 +62,8 @@ class Scraper:
 
 
             soup = BeautifulSoup(response.content, 'html.parser')
-            print(soup.prettify())
-            main_div = soup.find('div', {'class': 's-main-slot s-result-list s-search-results sg-row'})
+            # main_div = soup.find_all('span', {'data-component-type': 's-product-image'})
+            main_div = soup.find_all('span', {'cel_widget_id': 'MAIN-SEARCH_RESULTS'})
             retry_count = 0
 
             # If the results are not present, retry by sending a request again until we hit the retry limit
@@ -78,33 +77,29 @@ class Scraper:
 
                     response = requests.get(url, headers=headers)
                     soup = BeautifulSoup(response.content, 'html.parser')
-                    main_div = soup.find('div', {'class': 's-main-slot s-result-list s-search-results sg-row'})
+                    main_div = soup.find_all('span', {'cel_widget_id': 'SEARCH_RESULTS'})
 
                     retry_count += 1
-            print(retry_count)
+
 
             # If we still did not receive the results, return -1 as amazon not reachable
             if main_div is None:
-                print("Did not get results")
+                print("Did not get results from amazon")
                 return -1
 
             amazon_products_data = defaultdict(dict)
-
             count = 0
-            i = 0
-            while count < self.total_products_count:
-                item_div = main_div.find('div', {'data-index': str(i)})
+
+            for item_div in main_div:
 
                 # Check if item is sponsored, skip it
                 sponsored_div = item_div.find('div', {'data-component-type': 'sp-sponsored-result'})
                 if sponsored_div is not None:
-                    i += 1
                     continue
 
-                # Check if item is not listed on the amazon page
                 item_name = item_div.find('span', {'class': 'a-size-medium a-color-base a-text-normal'})
+                # Check if item is not listed on the amazon page
                 if item_name is None:
-                    i += 1
                     continue
 
                 amazon_products_data[count]['item_name'] = item_name.get_text().strip()
@@ -132,14 +127,17 @@ class Scraper:
                 item_link = item_div.find('a', {'class': 'a-link-normal a-text-normal'})
                 amazon_products_data[count]['item_link'] = "".join(['https://www.amazon.in', item_link['href']])
 
-                i += 1
                 count += 1
+                if count == self.total_products_count:
+                    return amazon_products_data
 
             return amazon_products_data
 
-        # except Exception as e:
-        #     # Could not fetch data from Amazon
-        #     return -1
+
+
+        except Exception as e:
+            # Could not fetch data from Amazon
+            return -1
 
     def search_flipkart(self):
         try:
@@ -283,6 +281,7 @@ class Scraper:
 
 
 '''
+# Time Test
 tt = time.time()
 for t in range(10):
 
@@ -298,6 +297,6 @@ print("Total Time taken to complete scraping", time.time() - tt)
 '''
 
 t1 = time.time()
-scraper = Scraper('rtx 2060')
+scraper = Scraper('gaming laptop')
 scraper.search()
 print("Total Time taken to complete scraping test = {}".format(time.time() - t1))

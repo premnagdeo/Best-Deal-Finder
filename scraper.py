@@ -22,21 +22,23 @@ class Scraper:
         flipkart_products_data = self.search_flipkart()
         flipkart_end_time = time.time()
 
-        # mdcomputers_start_time = time.time()
-        # mdcomputers_products_data = self.search_mdcomputers()
-        # mdcomputers_end_time = time.time()
+        mdcomputers_start_time = time.time()
+        mdcomputers_products_data = self.search_mdcomputers()
+        mdcomputers_end_time = time.time()
 
-        # master_data = {'amazon_products_data': amazon_products_data, 'flipkart_products_data': flipkart_products_data, 'mdcomputers_products_data': mdcomputers_products_data}
-        # print(master_data)
 
         # Debug
         print(amazon_products_data)
         print(flipkart_products_data)
+        print(mdcomputers_products_data)
+
+        master_data = {'amazon_products_data': amazon_products_data, 'flipkart_products_data': flipkart_products_data, 'mdcomputers_products_data': mdcomputers_products_data}
+        print(master_data)
 
         # Times
         print("Time to scrape Amazon =", amazon_end_time - amazon_start_time)
         print("Time to scrape Flipkart =", flipkart_end_time - flipkart_start_time)
-        # print("Time to scrape MDComputers =", mdcomputers_end_time - mdcomputers_start_time)
+        print("Time to scrape MDComputers =", mdcomputers_end_time - mdcomputers_start_time)
 
     def search_amazon(self):
         # try:
@@ -53,8 +55,8 @@ class Scraper:
             user_agent = choice(user_agent_list)
             headers = {"User-Agent": user_agent}
 
-            search_url = self.product.replace(' ', '+')
-            url = 'https://www.amazon.in/s?k=' + search_url
+            word_list = self.product.replace(' ', '+')
+            url = 'https://www.amazon.in/s?k=' + word_list
             response = requests.get(url, headers=headers)
 
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -76,7 +78,7 @@ class Scraper:
 
                     retry_count += 1
 
-            print(retry_count, url)
+
             # print(response.content)
 
             # If we still did not receive the results, return -1 as amazon not reachable
@@ -140,10 +142,9 @@ class Scraper:
         #     return -1
 
     def search_flipkart(self):
-        try:
+        # try:
 
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
 
             url_list = ['https://www.flipkart.com/search?q=']
             search_list = self.product.split()
@@ -216,22 +217,21 @@ class Scraper:
             return flipkart_products_data
 
 
-        except Exception as e:
-            # Could not fetch data from Flipkart
-            return -1
+        # except Exception as e:
+        #     # Could not fetch data from Flipkart
+        #     return -1
 
     def search_mdcomputers(self):
         # try:
-        self.browser.get('https://mdcomputers.in/')
 
-        search_bar = self.browser.find_element_by_xpath('/html/body/div[1]/header/div[2]/div/div/div[2]/div[1]/div/form/div/input')
 
-        search_bar.send_keys(self.product)
-        search_bar.submit()
-        time.sleep(5)
+        word_list = self.product.replace(' ', '+')
+        url = 'https://mdcomputers.in/index.php?category_id=0&search=' + word_list+ '&submit_search=&route=product%2Fsearch'
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
 
-        src = self.browser.page_source
-        soup = BeautifulSoup(src, 'html.parser')
+        response = requests.get(url, headers=headers)
+
+        soup = BeautifulSoup(response.content, 'html.parser')
 
         items_div = soup.find_all('div', {'class': 'product-item-container'})
         # print(items_div)
@@ -297,6 +297,6 @@ print("Total Time taken to complete scraping", time.time() - tt)
 '''
 
 t1 = time.time()
-scraper = Scraper('make up')
+scraper = Scraper('rtx 2060')
 scraper.search()
 print("Total Time taken to complete scraping test = {}".format(time.time() - t1))

@@ -14,31 +14,43 @@ class Scraper:
         self.total_products_count = 5
 
     def search(self):
-        amazon_start_time = time.time()
-        amazon_products_data = self.search_amazon()
-        amazon_end_time = time.time()
+        # amazon_start_time = time.time()
+        # amazon_products_data = self.search_amazon()
+        # amazon_end_time = time.time()
+        #
+        # flipkart_start_time = time.time()
+        # flipkart_products_data = self.search_flipkart()
+        # flipkart_end_time = time.time()
+        #
+        # mdcomputers_start_time = time.time()
+        # mdcomputers_products_data = self.search_mdcomputers()
+        # mdcomputers_end_time = time.time()
 
-        flipkart_start_time = time.time()
-        flipkart_products_data = self.search_flipkart()
-        flipkart_end_time = time.time()
-
-        mdcomputers_start_time = time.time()
-        mdcomputers_products_data = self.search_mdcomputers()
-        mdcomputers_end_time = time.time()
+        vedantcomputers_start_time = time.time()
+        vedantcomputers_products_data = self.search_vedantcomputers()
+        vedantcomputers_end_time = time.time()
 
 
         # Debug
-        print(amazon_products_data)
-        print(flipkart_products_data)
-        print(mdcomputers_products_data)
+        # print(amazon_products_data)
+        # print(flipkart_products_data)
+        # print(mdcomputers_products_data)
+        print(vedantcomputers_products_data)
 
-        master_data = {'amazon_products_data': amazon_products_data, 'flipkart_products_data': flipkart_products_data, 'mdcomputers_products_data': mdcomputers_products_data}
-        print(master_data)
+        # master_data = {
+        #                 'amazon_products_data': amazon_products_data,
+        #                'flipkart_products_data': flipkart_products_data,
+        #                'mdcomputers_products_data': mdcomputers_products_data,
+        #                'vedantcomputers_products_data': vedantcomputers_products_data
+        #                }
+        #
+        # print(master_data)
 
         # Times
-        print("Time to scrape Amazon =", amazon_end_time - amazon_start_time)
-        print("Time to scrape Flipkart =", flipkart_end_time - flipkart_start_time)
-        print("Time to scrape MDComputers =", mdcomputers_end_time - mdcomputers_start_time)
+        # print("Time to scrape Amazon =", amazon_end_time - amazon_start_time)
+        # print("Time to scrape Flipkart =", flipkart_end_time - flipkart_start_time)
+        # print("Time to scrape MDComputers =", mdcomputers_end_time - mdcomputers_start_time)
+        print("Time to scrape VedantComputers =", vedantcomputers_end_time - vedantcomputers_start_time)
 
     def search_amazon(self):
         # try:
@@ -104,7 +116,7 @@ class Scraper:
                 if item_name is None:
                     continue
 
-                amazon_products_data[count]['item_name'] = item_name.strip()
+                amazon_products_data[count]['item_name'] = item_name.strip().replace(u'\xa0', u' ')
 
                 # Get the rating
                 item_rating = item_div.find('span', {'class': 'a-declarative'})
@@ -147,8 +159,8 @@ class Scraper:
             headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
 
             url_list = ['https://www.flipkart.com/search?q=']
-            search_list = self.product.split()
-            for word in search_list:
+            word_list = self.product.split()
+            for word in word_list:
                 url_list.append(word)
                 url_list.append('%20')
             url = "".join(url_list[:-1])
@@ -280,23 +292,87 @@ class Scraper:
     #     return -1
 
 
-'''
-# Time Test
-tt = time.time()
-for t in range(10):
+    def search_vedantcomputers(self):
+        # try:
 
-    t1 = time.time()
+            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
 
-    scraper = Scraper('rtx 2060')
-    scraper.search()
+            url_list = ['https://www.vedantcomputers.com/index.php?route=product/search&search=']
+            word_list = self.product.split()
+            for word in word_list:
+                url_list.append(word)
+                url_list.append('%20')
 
-    print("Total Time taken to complete scraping test {} = {}".format(t, time.time() - t1))
+            url_list = url_list[:-1]
+            url_list.append('&description=true&limit=25')
+            url = "".join(url_list)
 
-print("Total Time taken to complete scraping", time.time() - tt)
+            response = requests.get(url, headers=headers)
 
-'''
+            soup = BeautifulSoup(response.content, 'html.parser')
+
+
+            main_div = soup.find('div', {'class': 'main-products product-grid'})
+
+            items_div = main_div.find_all('div', {'class': 'product-thumb'})
+
+            vedantcomputers_products_data = defaultdict(dict)
+            count = 0
+            for item_div in items_div:
+
+                # Get the name
+                item_name = item_div.find('div', {'class': 'name'})
+                if item_name is None:
+                    vedantcomputers_products_data[count]['item_name'] = 'Unavailable'
+                else:
+                    vedantcomputers_products_data[count]['item_name'] = item_name.get_text().strip()
+
+                # Get the rating
+
+                # Check if rating is unavailable
+                item_rating = item_div.find('div', {'class': 'rating no-rating'})
+                if item_rating is not None:
+                    vedantcomputers_products_data[count]['item_rating'] = 'Unavailable'
+                else:
+                    item_rating_div = item_div.find('div', {'class': 'rating'})
+
+                    # For rating we find the number of stars that are colored out of 5 stars
+                    colored_stars = item_div.find_all('i', {'class': 'fa fa-star fa-stack-2x'})
+                    item_rating = len(colored_stars)
+
+                    vedantcomputers_products_data[count]['item_rating'] = "".join([str(item_rating), '/5'])
+
+                # Get the price
+
+                # Check for discounted new price
+                item_price = item_div.find('span', {'class': 'price-new'})
+
+                # Check for regular price if product is not on discount
+                if item_price is None:
+                    item_price = item_div.find('span', {'class': 'price-normal'})
+                if item_price is None:
+                    vedantcomputers_products_data[count]['item_price'] = 'Unavailable'
+                else:
+                    vedantcomputers_products_data[count]['item_price'] = item_price.get_text().strip()[1:]
+
+                # Get the link
+                item_link_div = item_div.find('div', {'class': 'name'})
+
+                item_link = item_link_div.find('a')['href']
+                vedantcomputers_products_data[count]['item_link'] = item_link
+
+                count += 1
+                if count == self.total_products_count:
+                    return vedantcomputers_products_data
+
+            return vedantcomputers_products_data
+
+        # except Exception as e:
+        #     # Could not fetch data from MDComputers
+        #     return -1
+
 
 t1 = time.time()
-scraper = Scraper('rtx 2060')
+scraper = Scraper('gaming laptop')
 scraper.search()
 print("Total Time taken to complete scraping test = {}".format(time.time() - t1))

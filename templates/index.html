@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
+        <link rel="shortcut icon" href="#">
+        <title>Best Deal Finder</title>
+    </head>
+    <body>
+        <h1 id="find_best_deal"> Finding the best deal is now just a click away! </h1>
+        <div class="search_div">
+            <input type="text" class="search_bar" size="50rem" class="search_box" placeholder="   What are you looking for today?">
+            <img src="{{ url_for('static', filename='img/search_button.png')}}" alt="Search Button" class="search_button">
+        </div>
+        <h2 id="select_websites"> Select the websites you want to search: </h2>
+        <br>
+        <div class="selection_container">
+            <label class="checkbox_label" for="amazon_checkbox"> Amazon India </label>
+            <div title="amazon">
+                <div class="checkbox_div">
+                    <input type="checkbox" value="0" id="amazon_checkbox" name="amazon_checkbox" />
+                    <label for="amazon_checkbox"></label>
+                </div>
+            </div>
+            <label class="checkbox_label" for="flipkart_checkbox"> Flipkart </label>
+            <div title="flipkart">
+                <div class="checkbox_div">
+                    <input type="checkbox" value="1" id="flipkart_checkbox" name="flipkart_checkbox" />
+                    <label for="flipkart_checkbox"></label>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -9,12 +9,12 @@ body {
 	margin: 1rem;
 	margin-left: 0px;
 	padding: 1rem;
-	font-size: 2rem;
+	font-size: 1.8rem;
 	border: none;
 	outline: none;
 	border-radius: 5rem;
 	box-shadow: 0 1rem 2rem rgba(black, 0.1);
-	transition: width 0.45s, height 0.45s;
+	transition: all 0.6s ease-in;
 	transition-delay: .15s;
 }
 
@@ -22,18 +22,25 @@ body {
 	opacity: 0.5;
 }
 
-.search_bar:hover {
-	width: 60%;
-	height: 2.4rem;
-}
-
 .search_button {
 	height: 2rem;
 	position: relative;
-	right: 4.20rem;
+	right: 5rem;
 	top: 0.3rem;
-	transition: all .2s;
-	transition-delay: .1s;
+	transition: all 0.6s ease-in;
+	transition-delay: .15s;
+}
+
+
+.search_div:hover > .search_bar {
+	font-size: 2.1rem;
+	width: 60%;
+	height: 2.4rem;
+}
+.search_div:hover > .search_button {
+	height: 3rem;
+	right: 5.5rem;
+	top: 0.5rem;
 }
 
 #find_best_deal {
@@ -128,7 +135,6 @@ body {
 
 .checkbox_label {
 	margin: auto;
-	//display: inline;
 	margin-right: 1rem;
 	font-size: 2rem;
 	font-family: sans-serif;

@@ -14,8 +14,8 @@ body {
 	outline: none;
 	border-radius: 5rem;
 	box-shadow: 0 1rem 2rem rgba(black, 0.1);
-	transition: width 0.6s, height 0.6s;
-	transition-delay: .2s;
+	transition: width 0.45s, height 0.45s;
+	transition-delay: .15s;
 }
 
 .search_bar::placeholder {
@@ -128,7 +128,10 @@ body {
 
 .checkbox_label {
 	margin: auto;
-	display: inline;
-	margin-left: 50%;
-	font-size: 1.75rem;
+	//display: inline;
+	margin-right: 1rem;
+	font-size: 2rem;
+	font-family: sans-serif;
+	color: black;
+	font-weight: bold;
 }

@@ -12,22 +12,52 @@
             <img src="{{ url_for('static', filename='img/search_button.png')}}" alt="Search Button" class="search_button">
         </div>
         <h2 id="select_websites"> Select the websites you want to search: </h2>
-        <br>
         <div class="selection_container">
             <label class="checkbox_label" for="amazon_checkbox"> Amazon India </label>
             <div title="amazon">
                 <div class="checkbox_div">
-                    <input type="checkbox" value="0" id="amazon_checkbox" name="amazon_checkbox" />
+                    <input type="checkbox" value="0" id="amazon_checkbox" name="amazon_checkbox" checked/>
                     <label for="amazon_checkbox"></label>
                 </div>
             </div>
             <label class="checkbox_label" for="flipkart_checkbox"> Flipkart </label>
             <div title="flipkart">
                 <div class="checkbox_div">
-                    <input type="checkbox" value="1" id="flipkart_checkbox" name="flipkart_checkbox" />
+                    <input type="checkbox" value="1" id="flipkart_checkbox" name="flipkart_checkbox" checked/>
                     <label for="flipkart_checkbox"></label>
                 </div>
             </div>
+
+            <label class="checkbox_label" for="mdcomputers_checkbox"> MD Computers </label>
+            <div title="mdcomputer">
+                <div class="checkbox_div">
+                    <input type="checkbox" value="2" id="mdcomputers_checkbox" name="mdcomputers_checkbox" />
+                    <label for="mdcomputers_checkbox"></label>
+                </div>
+            </div>
+            <label class="checkbox_label" for="vedantcomputers_checkbox"> Vedant Computers </label>
+            <div title="vedantcomputers">
+                <div class="checkbox_div">
+                    <input type="checkbox" value="3" id="vedantcomputers_checkbox" name="vedantcomputers_checkbox" />
+                    <label for="vedantcomputers_checkbox"></label>
+                </div>
+            </div>
+
+            <label class="checkbox_label" for="neweggindia_checkbox"> Newegg India </label>
+            <div title="neweggindia">
+                <div class="checkbox_div">
+                    <input type="checkbox" value="4" id="neweggindia_checkbox" name="neweggindia_checkbox" />
+                    <label for="neweggindia_checkbox"></label>
+                </div>
+            </div>
+            <label class="checkbox_label" for="primeabgb_checkbox"> Prime ABGB </label>
+            <div title="primeabgb">
+                <div class="checkbox_div">
+                    <input type="checkbox" value="5" id="primeabgb_checkbox" name="primeabgb_checkbox" />
+                    <label for="primeabgb_checkbox"></label>
+                </div>
+            </div>
+
         </div>
     </body>
 </html>

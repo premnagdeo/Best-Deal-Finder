@@ -519,8 +519,8 @@ class Scraper:
 
 
 t1 = time.time()
-scraper = Scraper('rtx 2060')
-scraper.search()
+# scraper = Scraper('rtx 2060')
+# scraper.search()
 # scraper = Scraper('gaming laptop')
 # scraper.search()
 # scraper = Scraper('makeup')

@@ -66,10 +66,10 @@ def search_amazon(product, total_products_count):
 
         response.close()
 
-        # If we still did not receive the results, return -1 as amazon not reachable
+        # If we still did not receive the results, return empty as amazon not reachable
         if main_div is None:
             # print("Did not get results from amazon")
-            return -1
+            return {}
 
         amazon_products_data = defaultdict(dict)
         count = 0
@@ -121,7 +121,7 @@ def search_amazon(product, total_products_count):
 
     # except Exception as e:
     #     # Could not fetch data from Amazon
-    #     return -1
+    #     return {}
 
 def search_flipkart(product, total_products_count):
     # try:
@@ -201,7 +201,7 @@ def search_flipkart(product, total_products_count):
 
     # except Exception as e:
     #     # Could not fetch data from Flipkart
-    #     return -1
+    #     return {}
 
 def search_mdcomputers(product, total_products_count):
     # try:
@@ -259,7 +259,7 @@ def search_mdcomputers(product, total_products_count):
 
     # except Exception as e:
     #     # Could not fetch data from MDComputers
-    #     return -1
+    #     return {}
 
 def search_vedantcomputers(product, total_products_count):
     # try:
@@ -341,7 +341,7 @@ def search_vedantcomputers(product, total_products_count):
 
     # except Exception as e:
     #     # Could not fetch data from MDComputers
-    #     return -1
+    #     return {}
 
 def search_neweggindia(product, total_products_count):
     # try:
@@ -401,7 +401,7 @@ def search_neweggindia(product, total_products_count):
 
     # except Exception as e:
     #     # Could not fetch data from MDComputers
-    #     return -1
+    #     return {}
 
 def search_primeabgb(product, total_products_count):
     # try:
@@ -474,6 +474,6 @@ def search_primeabgb(product, total_products_count):
 
     # except Exception as e:
     #     # Could not fetch data from MDComputers
-    #     return -1
+    #     return {}
 
 

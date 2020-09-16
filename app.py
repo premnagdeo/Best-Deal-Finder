@@ -1,6 +1,5 @@
-from scraper import Scraper
-from flask import Flask, render_template, jsonify
-
+import scraper
+from flask import Flask, render_template, jsonify, Response, request
 
 app = Flask(__name__)
 
@@ -9,6 +8,36 @@ app = Flask(__name__)
 def check_connection():
     return jsonify({'status': 'OK'})
 
+
+website_dictionary_mapping = {
+    'amazon_checkbox': 'search_amazon',
+    'flipkart_checkbox': 'search_flipkart',
+    'mdcomputers_checkbox': 'search_mdcomputers',
+    'vedantcomputers_checkbox': 'search_vedantcomputers',
+    'neweggindia_checkbox': 'search_neweggindia',
+    'primeabgb_checkbox': 'search_primeabgb'
+}
+
+@app.route("/data", methods=["POST"])
+def scrape():
+    if request.form is not None:
+        form_data = request.form.to_dict()
+        if form_data is not None:
+            search_query = form_data['search_query']
+            search_count = form_data['search_count']
+            name = form_data['name']
+            if name in website_dictionary_mapping:
+                search_website = 'scraper.' + website_dictionary_mapping[name] + '(' + "'" + search_query + "'" + ', ' + search_count + ')'
+                print("debug search website =", search_website)
+                data = eval(search_website)
+
+                print("FINALLY", data)
+
+                return data, 200
+        else:
+            return jsonify({'error': 'No form data'}), 503
+    else:
+        return jsonify({'error': 'No form found in request'}), 503
 
 
 

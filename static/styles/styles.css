@@ -19,9 +19,8 @@ body {
 	border: none;
 	outline: none;
 	border-radius: 25px;
-	-webkit-box-shadow: -6px 11px 22px 0px rgba(0,0,0,0.68);
-	-moz-box-shadow: -6px 11px 22px 0px rgba(0,0,0,0.68);
-	box-shadow: -6px 11px 22px 0px rgba(0,0,0,0.68);
+	-webkit-box-shadow: -6px 11px 22px 0px rgba(0, 0, 0, 0.68);
+	box-shadow: -6px 11px 22px 0px rgba(0, 0, 0, 0.68);
 	transition: all 0.3s ease-in;
 	transition-delay: .1s;
 }
@@ -53,7 +52,7 @@ body {
 }
 
 .search_query:hover>.search_bar {
-	font-size: 25px;
+	font-size: 27px;
 	width: 80%;
 	height: 2.4rem;
 }
@@ -86,7 +85,6 @@ body {
 	text-align: right;
 }
 
-
 .select_results {
 	width: 70px;
 	margin: auto 0;
@@ -99,13 +97,6 @@ body {
 	appearance: none;
 	-webkit-appearance: none;
 	-moz-appearance: none;
-}
-
-
-/* For IE <= 11 */
-
-select::-ms-expand {
-	display: none;
 }
 
 select {
@@ -127,13 +118,6 @@ select {
 	-moz-appearance: none;
 	/* Adding transition effect */
 	transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
-}
-
-
-/* For IE <= 11 */
-
-select::-ms-expand {
-	display: none;
 }
 
 select:hover,

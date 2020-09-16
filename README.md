@@ -13,6 +13,9 @@ Currently in development.
 - Newegg India
 - Prime ABGB
 
+### Front End Complete
+
 
 ## TODO
-- Build a Frontend using Flask
+- Process ajax responses
+- Create display divs dynamically

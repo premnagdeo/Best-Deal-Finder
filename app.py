@@ -4,9 +4,13 @@ from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
+
 @app.route("/check_connection", methods=['GET', 'POST'])
 def check_connection():
     return jsonify({'status': 'OK'})
+
+
+
 
 @app.route('/')
 def index():

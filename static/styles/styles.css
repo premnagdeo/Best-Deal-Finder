@@ -1,21 +1,34 @@
 body {
 	background-color: #7395AE;
-	margin: 2rem;
+	margin: 25px;
+}
+
+.search_div {
+	width: 100%;
+	display: flex;
 }
 
 .search_bar {
+	float: left;
 	height: 2rem;
-	width: 50%;
-	margin: 1rem;
+	width: 80%;
+	margin: 7.5px;
 	margin-left: 0px;
-	padding: 1rem;
-	font-size: 1.8rem;
+	padding: 12px;
+	font-size: 20px;
 	border: none;
 	outline: none;
-	border-radius: 5rem;
-	box-shadow: 0 1rem 2rem rgba(black, 0.1);
-	transition: all 0.6s ease-in;
-	transition-delay: .15s;
+	border-radius: 25px;
+	-webkit-box-shadow: -6px 11px 22px 0px rgba(0,0,0,0.68);
+	-moz-box-shadow: -6px 11px 22px 0px rgba(0,0,0,0.68);
+	box-shadow: -6px 11px 22px 0px rgba(0,0,0,0.68);
+	transition: all 0.3s ease-in;
+	transition-delay: .1s;
+}
+
+.search_query {
+	transition: all 0.3s ease-in;
+	transition-delay: .1s;
 }
 
 .search_bar::placeholder {
@@ -23,24 +36,32 @@ body {
 }
 
 .search_button {
-	height: 2rem;
 	position: relative;
-	right: 5rem;
-	top: 0.3rem;
-	transition: all 0.6s ease-in;
-	transition-delay: .15s;
+	height: 32px;
+	right: 45px;
+	top: 20px;
+	transition: all 0.3s ease-in;
+	transition-delay: .1s;
 }
 
+.search_query {
+	width: 45%;
+}
 
-.search_div:hover > .search_bar {
-	font-size: 2.1rem;
-	width: 60%;
+.search_query:hover {
+	width: 55%;
+}
+
+.search_query:hover>.search_bar {
+	font-size: 25px;
+	width: 80%;
 	height: 2.4rem;
 }
-.search_div:hover > .search_button {
-	height: 3rem;
-	right: 5.5rem;
-	top: 0.5rem;
+
+.search_query:hover>.search_button {
+	height: 48px;
+	right: 67.5px;
+	top: 16px;
 }
 
 #find_best_deal {
@@ -52,10 +73,78 @@ body {
 
 #select_websites {
 	color: white;
-	margin: 1rem;
+	margin: 10px;
 	margin-left: 0px;
 	font-size: 3rem;
 }
+
+.number_of_search_results {
+	width: 35%;
+	font-size: 25px;
+	margin: auto 0;
+	margin-right: 10px;
+	text-align: right;
+}
+
+
+.select_results {
+	width: 70px;
+	margin: auto 0;
+}
+
+
+/* Select element start*/
+
+#select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+
+/* For IE <= 11 */
+
+select::-ms-expand {
+	display: none;
+}
+
+select {
+	width: 100%;
+	height: 40px;
+	font-size: 100%;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius: 0;
+	background-color: #c0392b;
+	border: none;
+	border-bottom: 2px solid #962d22;
+	color: white;
+	padding: 10px;
+	padding-right: 38px;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	/* Adding transition effect */
+	transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+
+/* For IE <= 11 */
+
+select::-ms-expand {
+	display: none;
+}
+
+select:hover,
+select:focus {
+	color: #c0392b;
+	background-color: white;
+	border-bottom-color: #DCDCDC;
+}
+
+
+/* Select element end*/
 
 
 /* Checkbox css start*/

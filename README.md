@@ -13,9 +13,9 @@ Currently in development.
 - Newegg India
 - Prime ABGB
 
-### Front End Complete
 
+#### - Front End Complete
+#### - Process ajax responses
 
 ## TODO
-- Process ajax responses
 - Create display divs dynamically

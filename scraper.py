@@ -8,19 +8,19 @@ import re
 
 def search(product, total_products_count):
     amazon_products_data = search_amazon(product, total_products_count)
-    flipkart_products_data = search_flipkart(product, total_products_count)
-    mdcomputers_products_data = search_mdcomputers(product, total_products_count)
-    vedantcomputers_products_data = search_vedantcomputers(product, total_products_count)
-    neweggindia_products_data = search_neweggindia(product, total_products_count)
-    primeabgb_products_data = search_primeabgb(product, total_products_count)
+    # flipkart_products_data = search_flipkart(product, total_products_count)
+    # mdcomputers_products_data = search_mdcomputers(product, total_products_count)
+    # vedantcomputers_products_data = search_vedantcomputers(product, total_products_count)
+    # neweggindia_products_data = search_neweggindia(product, total_products_count)
+    # primeabgb_products_data = search_primeabgb(product, total_products_count)
 
     master_data = {
                    'amazon_products_data': amazon_products_data,
-                   'flipkart_products_data': flipkart_products_data,
-                   'mdcomputers_products_data': mdcomputers_products_data,
-                   'vedantcomputers_products_data': vedantcomputers_products_data,
-                   'neweggindia_products_data': neweggindia_products_data,
-                   'primeabgb_products_data': primeabgb_products_data
+                   # 'flipkart_products_data': flipkart_products_data,
+                   # 'mdcomputers_products_data': mdcomputers_products_data,
+                   # 'vedantcomputers_products_data': vedantcomputers_products_data,
+                   # 'neweggindia_products_data': neweggindia_products_data,
+                   # 'primeabgb_products_data': primeabgb_products_data
                    }
 
     print(master_data)
@@ -47,7 +47,8 @@ def search_amazon(product, total_products_count):
 
         soup = BeautifulSoup(response.content, 'html.parser')
 
-        main_div = soup.find_all('span', {'cel_widget_id': 'MAIN-SEARCH_RESULTS'})
+
+        main_div = soup.find_all('span', {'cel_widget_id': re.compile("^MAIN-SEARCH_RESULTS")})
         retry_count = 0
 
         # If the results are not present, retry by sending a request again until we hit the retry limit
@@ -68,14 +69,14 @@ def search_amazon(product, total_products_count):
 
         # If we still did not receive the results, return empty as amazon not reachable
         if main_div is None:
-            # print("Did not get results from amazon")
+            print("Did not get results from Amazon")
             return {}
 
         amazon_products_data = defaultdict(dict)
         count = 0
-        # print(main_div)
-        for item_div in main_div:
 
+        for item_div in main_div:
+    
             # Check if item is sponsored, skip it
             sponsored_div = item_div.find('div', {'data-component-type': 'sp-sponsored-result'})
             if sponsored_div is not None:
@@ -285,7 +286,7 @@ def search_vedantcomputers(product, total_products_count):
 
         if main_div is None:
             # Not able to get results from main_div
-            return -1
+            return {}
         items_div = main_div.find_all('div', {'class': 'product-thumb'})
 
         vedantcomputers_products_data = defaultdict(dict)
@@ -477,3 +478,4 @@ def search_primeabgb(product, total_products_count):
     #     return {}
 
 
+search("rtx 2060", 3)

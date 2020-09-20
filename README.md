@@ -9,9 +9,9 @@ Currently in development.
 - Amazon India
 - Flipkart
 - MDComputers
-- VedantComputers
 - Newegg India
 - Prime ABGB
+- ~~VedantComputers~~ (VedantComputers added CloudFlare protection)
 
 
 #### - Front End Complete

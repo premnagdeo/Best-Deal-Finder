@@ -65,7 +65,7 @@ body {
 
 #find_best_deal {
 	color: white;
-	margin: 1rem;
+	margin: 10px;
 	margin-left: 0px;
 	font-size: 3.5rem;
 }
@@ -76,6 +76,7 @@ body {
 	margin-left: 0px;
 	font-size: 3rem;
 }
+
 
 .number_of_search_results {
 	width: 35%;
@@ -204,8 +205,6 @@ select:focus {
 }
 
 
-/* Checkbox css end*/
-
 .checkbox_label {
 	margin: auto;
 	margin-right: 1rem;
@@ -214,3 +213,34 @@ select:focus {
 	color: black;
 	font-weight: bold;
 }
+
+/* Checkbox css end*/
+
+
+/* results css starts */
+
+#results_title {
+		color: white;
+		margin: 10px;
+		margin-left: 0px;
+		font-size: 2.7rem;
+}
+
+.results_product_title {
+		color: black;
+		margin: 5px;
+		margin-left: 0px;
+		font-size: 2rem;
+}
+
+
+.results_products_item_title {
+	margin: 5px;
+	font-size: 1.7rem;
+}
+
+.results_products_details {
+
+}
+
+/* results css ends*/

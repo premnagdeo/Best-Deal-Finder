@@ -17,12 +17,12 @@ $(document).ready(function () {
 
 	function get_data() {
 		// Create Results Title after keypress
-		$(".results_div").append(
+		$(".results_div").html(
 			$('<h2>').prop({
-			id: 'results_title',
-			innerHTML: 'Results:'
-		})
-	);
+				id: 'results_title',
+				innerHTML: 'Results:'
+			})
+		);
 		// Check connection with flask server
 		var form_data = $('form').serializeArray();
 		$.ajax({
@@ -74,20 +74,19 @@ $(document).ready(function () {
 						// Check if empty object received from server
 						let checkbox_name = data_to_send['name'];
 						products_data[checkbox_name] = response;
-						if (Object.keys(response).length==0) {
-							console.log(checkbox_name + " " + "came back empty");
-							error_function(checkbox_name, response);
+						if (Object.keys(response).length == 0) {
+
+							no_results_error_function(checkbox_name, response);
 						}
-						else{
+						else {
 							success_function(checkbox_name, response);
 						}
 
 					},
 					error: function (error) {
-						console.log(checkbox_name + " " + "Server error");
 						let checkbox_name = data_to_send['name'];
 						products_data[checkbox_name] = {};
-						error_function(checkbox_name, response);
+						server_error_function(checkbox_name, response);
 					},
 					complete: function (data) {
 						received_response_count++;
@@ -96,101 +95,122 @@ $(document).ready(function () {
 				});
 
 
-				function success_function(checkbox_name, curr_response){
+				function success_function(checkbox_name, curr_response) {
+
+
 					create_product_title_div(checkbox_name);
 
-					$.each(curr_response, function(k, v) {
-						create_product_details_div(k, v);
-			  	});
+					$.each(curr_response, function (k, v) {
+						create_product_details_div(k, v, checkbox_name);
+					});
 
 
 				}
 
-				function error_function(checkbox_name, curr_response){
-					console.log("Error " + checkbox_name + " " + curr_response);
-					create_product_title_div(checkbox_name);
+				function no_results_error_function(curr_checkbox_name, curr_response) {
+					create_product_title_div(curr_checkbox_name);
+					let parent = '#' + curr_checkbox_name + '_result';
+
+					$(parent).append(
+						$('<h2>').prop({
+
+							innerHTML: "No products were found.",
+							className: 'error_text'
+						})
+					);
 
 
+				}
+
+
+				function server_error_function(curr_checkbox_name, curr_response) {
+
+					create_product_title_div(curr_checkbox_name);
+					let parent = '#' + curr_checkbox_name + '_result';
+
+					$(parent).append(
+						$('<h2>').prop({
+							innerHTML: "Server Error while fetching results.",
+							className: 'error_text'
+						})
+					);
 
 
 				}
 
 				function create_product_title_div(checkbox_name) {
+
 					let website_dict = {
-									    'amazon_checkbox': 'Amazon:',
-									    'flipkart_checkbox': 'Flipkart:',
-									    'mdcomputers_checkbox': 'MD Computers:',
-									    'vedantcomputers_checkbox': 'Vedant Computers:',
-									    'neweggindia_checkbox': 'Newegg India:',
-									    'primeabgb_checkbox': 'Prime ABGB:'
-										};
+						'amazon_checkbox': 'Amazon:',
+						'flipkart_checkbox': 'Flipkart:',
+						'mdcomputers_checkbox': 'MD Computers:',
+						'vedantcomputers_checkbox': 'Vedant Computers:',
+						'neweggindia_checkbox': 'Newegg India:',
+						'primeabgb_checkbox': 'Prime ABGB:'
+					};
 					let website_name = website_dict[checkbox_name];
 
 					$('.results_div').append(
-							$('<div>').prop(
-								{
-									innerHTML: website_name,
-										className: 'results_product_title'
+						$('<div>').prop({
+							id: checkbox_name + '_result',
+							innerHTML: website_name,
+							className: 'results_product_title'
 
-								}
-							)
+						})
 					);
 
 				}
 
-				function create_product_details_div(item_number, product_data) {
-					// console.log("create_product_details_div" + count + " " + typeof(item_number) + " " + product_data + " " + typeof(product_data));
+				function create_product_details_div(item_number, product_data, curr_checkbox_name) {
 					item_number = parseInt(item_number, 10) + 1;
-					$('.results_div').append(
-							$('<div>').prop(
-								{
-									innerHTML: "Item " + item_number.toString() + ":",
-										className: 'results_products_item_title'
-								}
-							)
+					let parent = '#' + curr_checkbox_name + '_result';
+
+
+					$(parent).append(
+						$('<div>').prop({
+							innerHTML: "Item " + item_number.toString() + ":",
+							className: 'results_products_item_title'
+						})
 					);
 
 
 					// Product Name
-						$('.results_div').append(
-								$('<div>').prop(
-									{
-										innerHTML: "Product Name: " + product_data['item_name'],
-										className: 'results_products_details'
-									}
-								)
-						);
+					$(parent).append(
+						$('<div>').prop({
+							innerHTML: "Product Name: " + product_data['item_name'],
+							className: 'results_products_details'
+						})
+					);
 
-						// Product Rating
-							$('.results_div').append(
-									$('<div>').prop(
-										{
-											innerHTML: "Product Rating: " + product_data['item_rating'],
-											className: 'results_products_details'
-										}
-									)
-							);
+					// Product Rating
+					$(parent).append(
+						$('<div>').prop({
+							innerHTML: "Product Rating: " + product_data['item_rating'],
+							className: 'results_products_details'
+						})
+					);
 
-						// Product Price
-							$('.results_div').append(
-									$('<div>').prop(
-										{
-											innerHTML: "Product Price: ₹" + product_data['item_price'],
-											className: 'results_products_details'
-										}
-									)
-							);
+					// Product Price
+					let text = "Product Price: "
+					if (product_data['item_price'] != "Unavailable") {
+						text += "₹"
+					}
+
+					$(parent).append(
+						$('<div>').prop({
+							innerHTML: text + product_data['item_price'],
+							className: 'results_products_details'
+						})
+					);
 
 
-						// Product Link
-						$('.results_div').append(
-								$('<div>').prop(
-									{
-										innerHTML: "Product Link: " + product_data['item_link'],
-										className: 'results_products_details'
-									}
-								)
-						);
+					// Product Link
+					$(parent).append(
+						$('<div>').prop({
+							innerHTML: "Product Link: " + product_data['item_link'],
+							className: 'results_products_details'
+						})
+					);
 
 				}
 

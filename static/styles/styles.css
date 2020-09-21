@@ -1,5 +1,5 @@
 body {
-	background-color: #7395AE;
+	background-color: #a0d2eb;
 	margin: 25px;
 }
 
@@ -64,14 +64,14 @@ body {
 }
 
 #find_best_deal {
-	color: white;
+	color: #0049B7;
 	margin: 10px;
 	margin-left: 0px;
 	font-size: 3.5rem;
 }
 
 #select_websites {
-	color: white;
+	color: #0049B7;
 	margin: 10px;
 	margin-left: 0px;
 	font-size: 3rem;
@@ -108,9 +108,9 @@ select {
 	font-weight: bold;
 	cursor: pointer;
 	border-radius: 0;
-	background-color: #c0392b;
+	background-color: #026777;
 	border: none;
-	border-bottom: 2px solid #962d22;
+	border-bottom: 2px solid #004652;
 	color: white;
 	padding: 10px;
 	padding-right: 38px;
@@ -123,7 +123,7 @@ select {
 
 select:hover,
 select:focus {
-	color: #c0392b;
+	color: #00DDFF;
 	background-color: white;
 	border-bottom-color: #DCDCDC;
 }
@@ -143,6 +143,7 @@ select:focus {
 .checkbox_label {
 	padding-left: 0;
 	font-weight: bold;
+	color: white;
 }
 
 .checkbox_div {
@@ -159,7 +160,7 @@ select:focus {
 
 .checkbox_div:after {
 	content: 'OFF';
-	color: #000;
+	color: red;
 	position: absolute;
 	right: 10px;
 	z-index: 0;
@@ -176,6 +177,7 @@ select:focus {
 	z-index: 0;
 	font: 12px/26px Arial, sans-serif;
 	font-weight: bold;
+
 }
 
 .checkbox_div label {
@@ -210,8 +212,9 @@ select:focus {
 	margin-right: 1rem;
 	font-size: 2rem;
 	font-family: sans-serif;
-	color: black;
+	color: white;
 	font-weight: bold;
+text-shadow: rgb(64, 116, 181) 2px 2px 0px, rgb(64, 116, 181) 2px -2px 0px, rgb(64, 116, 181) -2px 2px 0px, rgb(64, 116, 181) -2px -2px 0px, rgb(64, 116, 181) 2px 0px 0px, rgb(64, 116, 181) 0px 2px 0px, rgb(64, 116, 181) -2px 0px 0px, rgb(64, 116, 181) 0px -2px 0px;
 }
 
 /* Checkbox css end*/
@@ -220,34 +223,50 @@ select:focus {
 /* results css starts */
 
 #results_title {
-		color: white;
+		color: #0049B7;
 		margin: 10px;
 		margin-left: 0px;
 		font-size: 2.7rem;
 }
 
-.results_div{
+.results_div {
 	margin: 10px;
 	margin-left: 0px;
 }
 
+.results_div > div {
+	background-color: #494D5F;
+	margin-bottom: 40px;
+	padding: 10px;
+}
+
 
 .results_product_title {
-		color: white;
+		color: #e5eaf5;
 		margin: 10px 5px 5px 0px;
 		font-size: 2rem;
 }
 
 
 .results_products_item_title {
+	color: white;
 	margin: 5px;
 	font-size: 1.7rem;
 }
 
 .results_products_details {
+	color: #00DDFF;
 	margin: 2px;
 	margin-left: 10px;
 	font-size: 1.3rem;
+
+}
+
+.error_text{
+	color: #ff0000;
+	margin: 2px;
+	margin-left: 10px;
+	font-size: 1.5rem;
 
 }
 

@@ -161,9 +161,20 @@ def search_flipkart(product, total_products_count):
 
                 # Get the name
                 item_name = item_div.find('img')['alt'].strip()
+                if item_name == "":
+                    # Try to find item name in anchor tags:
+                    anchor_tags = item_div.find_all('a')
+                    for tag in anchor_tags:
+                        text = tag.get('title')
+                        if text is not None:
+                            item_name = text
                 if item_name[-3:] == '...':
                     item_name = item_name[:-3]
-                flipkart_products_data[count]['item_name'] = item_name
+
+                if item_name == "":
+                    flipkart_products_data[count]['item_name'] = "Unavailable"
+                else:
+                    flipkart_products_data[count]['item_name'] = item_name
 
                 # Get the rating
                 item_rating = item_div.find('span', {'id': re.compile("^productRating_")})

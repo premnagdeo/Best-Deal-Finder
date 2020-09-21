@@ -1,17 +1,14 @@
 $(document).ready(function () {
-	// console.log("DEBUG script called");
 	$("#search_button").on("click", function (e) {
 		e.preventDefault();
-		// console.log("DEBUG button click");
 		get_data();
 	});
 
 	$("#search_bar").keypress(function (e) {
 		var key = e.which;
-		if (key == 13) // the enter key code
+		if (key == 13) // user presses the enter key code in the search bar
 		{
 			e.preventDefault();
-			// console.log("DEBUG enter pressed");
 			get_data();
 			$('input[name = butAssignProd]').click();
 			return false;
@@ -19,14 +16,14 @@ $(document).ready(function () {
 	});
 
 	function get_data() {
-		// Create Results Title
+		// Create Results Title after keypress
 		$(".results_div").append(
 			$('<h2>').prop({
 			id: 'results_title',
 			innerHTML: 'Results:'
 		})
 	);
-
+		// Check connection with flask server
 		var form_data = $('form').serializeArray();
 		$.ajax({
 			url: '/check_connection',
@@ -40,23 +37,6 @@ $(document).ready(function () {
 
 
 		});
-		// console.log(form_data);
-		/* Working Send entire data
-    $.ajax({
-      url: '/data',
-      type: 'POST',
-      data: form_data,
-      success:function (response) {
-				console.log(response);
-			},
-			error: function (error) {
-				console.log(error);
-			}
-    })
-
-      */
-
-		// Send data one by one
 
 		var search_query = form_data[0]['value'];
 		var search_count = form_data[1]['value'];
@@ -70,14 +50,10 @@ $(document).ready(function () {
 			var products_data = new Object();
 			var received_response_count = 0;
 
-
-
-			// TODO figure out how to make ajax wait for all replies
-      // TODO maybe try to call a function on success of ajax to create the divs dynamically
+			// Send all ajax requests
 			$.when(form_data.forEach(send_data)).then(function () {
 				console.log("All complete");
 				console.log(products_data);
-
 			});
 
 
@@ -87,7 +63,6 @@ $(document).ready(function () {
 					search_count: search_count
 				};
 				let data_to_send = Object.assign(query, item);
-				// console.log("Sending " + JSON.stringify(data_to_send));
 
 				$.ajax({
 					url: '/data',
@@ -95,38 +70,33 @@ $(document).ready(function () {
 					data: data_to_send,
 					dataType: 'json',
 					success: function (response) {
-						// console.log("RESPONSE: " + response);
+
+						// Check if empty object received from server
 						let checkbox_name = data_to_send['name'];
 						products_data[checkbox_name] = response;
 						if (Object.keys(response).length==0) {
 							console.log(checkbox_name + " " + "came back empty");
+							error_function(checkbox_name, response);
 						}
 						else{
 							success_function(checkbox_name, response);
 						}
 
-						// console.log("DEBUG");
-						// console.log(checkbox_name);
-						// console.log(products_data);
 					},
 					error: function (error) {
-						console.log(error);
+						console.log(checkbox_name + " " + "Server error");
 						let checkbox_name = data_to_send['name'];
 						products_data[checkbox_name] = {};
 						error_function(checkbox_name, response);
 					},
 					complete: function (data) {
 						received_response_count++;
-						console.log("Debug1" + received_response_count);
 					}
 
 				});
 
 
 				function success_function(checkbox_name, curr_response){
-
-
-					console.log("Yo success " + checkbox_name + " " + curr_response);
 					create_product_title_div(checkbox_name);
 
 					$.each(curr_response, function(k, v) {
@@ -136,8 +106,13 @@ $(document).ready(function () {
 
 				}
 
-				function error_function(checkbox_name, response){
-					console.log("Yo error " + checkbox_name + " " +response);
+				function error_function(checkbox_name, curr_response){
+					console.log("Error " + checkbox_name + " " + curr_response);
+					create_product_title_div(checkbox_name);
+
+
+
+
 				}
 
 				function create_product_title_div(checkbox_name) {
@@ -156,11 +131,10 @@ $(document).ready(function () {
 								{
 									innerHTML: website_name,
 										className: 'results_product_title'
+
 								}
 							)
 					);
-
-
 
 				}
 
@@ -176,18 +150,6 @@ $(document).ready(function () {
 							)
 					);
 
-					/*
-					$.each(product_data, function(k, v){
-						$('.results_div').append(
-								$('<div>').prop(
-									{
-										innerHTML: v,
-										className: 'results_products_details'
-									}
-								)
-						);
-					});
-					*/
 
 					// Product Name
 						$('.results_div').append(
@@ -213,7 +175,7 @@ $(document).ready(function () {
 							$('.results_div').append(
 									$('<div>').prop(
 										{
-											innerHTML: "Product Price: " + product_data['item_price'],
+											innerHTML: "Product Price: ₹" + product_data['item_price'],
 											className: 'results_products_details'
 										}
 									)

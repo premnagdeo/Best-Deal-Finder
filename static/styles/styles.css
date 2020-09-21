@@ -226,10 +226,15 @@ select:focus {
 		font-size: 2.7rem;
 }
 
+.results_div{
+	margin: 10px;
+	margin-left: 0px;
+}
+
+
 .results_product_title {
-		color: black;
-		margin: 5px;
-		margin-left: 0px;
+		color: white;
+		margin: 10px 5px 5px 0px;
 		font-size: 2rem;
 }
 
@@ -240,6 +245,9 @@ select:focus {
 }
 
 .results_products_details {
+	margin: 2px;
+	margin-left: 10px;
+	font-size: 1.3rem;
 
 }
 

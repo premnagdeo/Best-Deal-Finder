@@ -11,12 +11,11 @@ Currently in development.
 - MDComputers
 - Newegg India
 - Prime ABGB
-- ~~VedantComputers~~ (VedantComputers added CloudFlare protection)
-
+- The IT Depot
 
 #### - Front End Complete
 #### - Process ajax responses
 #### - Create display divs dynamically
 
 ## TODO
-Scrape The IT Depot (Replacement for VedantComputers)
+Create CSV File for download

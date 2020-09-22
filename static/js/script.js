@@ -144,7 +144,7 @@ $(document).ready(function () {
 						'amazon_checkbox': 'Amazon:',
 						'flipkart_checkbox': 'Flipkart:',
 						'mdcomputers_checkbox': 'MD Computers:',
-						'vedantcomputers_checkbox': 'Vedant Computers:',
+						'theitdepot_checkbox': 'The IT Depot:',
 						'neweggindia_checkbox': 'Newegg India:',
 						'primeabgb_checkbox': 'Prime ABGB:'
 					};

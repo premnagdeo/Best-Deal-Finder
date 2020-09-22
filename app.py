@@ -1,5 +1,5 @@
 import scraper
-from flask import Flask, render_template, jsonify, Response, request
+from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
 
@@ -13,9 +13,9 @@ website_dictionary_mapping = {
     'amazon_checkbox': 'search_amazon',
     'flipkart_checkbox': 'search_flipkart',
     'mdcomputers_checkbox': 'search_mdcomputers',
-    'vedantcomputers_checkbox': 'search_vedantcomputers',
     'neweggindia_checkbox': 'search_neweggindia',
-    'primeabgb_checkbox': 'search_primeabgb'
+    'primeabgb_checkbox': 'search_primeabgb',
+    'theitdepot_checkbox': 'search_theitdepot'
 }
 
 @app.route("/data", methods=["POST"])
@@ -28,10 +28,8 @@ def scrape():
             name = form_data['name']
             if name in website_dictionary_mapping:
                 search_website = 'scraper.' + website_dictionary_mapping[name] + '(' + "'" + search_query + "'" + ', ' + search_count + ')'
-                print("debug search website =", search_website)
+                # Call the search function
                 data = eval(search_website)
-
-                print("FINALLY", data)
 
                 return data, 200
         else:

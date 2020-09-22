@@ -16,6 +16,7 @@ Currently in development.
 
 #### - Front End Complete
 #### - Process ajax responses
+#### - Create display divs dynamically
 
 ## TODO
-- Create display divs dynamically
+Scrape The IT Depot (Replacement for VedantComputers)

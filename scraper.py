@@ -11,17 +11,20 @@ def search(product, total_products_count):
     # amazon_products_data = search_amazon(product, total_products_count)
     # flipkart_products_data = search_flipkart(product, total_products_count)
     # mdcomputers_products_data = search_mdcomputers(product, total_products_count)
-    vedantcomputers_products_data = search_vedantcomputers(product, total_products_count)
+    # vedantcomputers_products_data = search_vedantcomputers(product, total_products_count)
     # neweggindia_products_data = search_neweggindia(product, total_products_count)
     # primeabgb_products_data = search_primeabgb(product, total_products_count)
+    theitdepot_products_data = search_theitdepot(product, total_products_count)
+
 
     master_data = {
                    # 'amazon_products_data': amazon_products_data,
                    # 'flipkart_products_data': flipkart_products_data,
                    # 'mdcomputers_products_data': mdcomputers_products_data,
-                   'vedantcomputers_products_data': vedantcomputers_products_data,
+                   # 'vedantcomputers_products_data': vedantcomputers_products_data,
                    # 'neweggindia_products_data': neweggindia_products_data,
-                   # 'primeabgb_products_data': primeabgb_products_data
+                   # 'primeabgb_products_data': primeabgb_products_data,
+                     'theitdepot_products_data': theitdepot_products_data
                    }
 
     print(master_data)
@@ -502,7 +505,69 @@ def search_primeabgb(product, total_products_count):
     #     # Could not fetch data from MDComputers
     #     return {}
 
+
+def search_theitdepot(product, total_products_count):
+    # try:
+
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
+
+        word_list = product.replace(' ', '+')
+        url = 'https://www.theitdepot.com/search.html?keywords=' + word_list
+        response = requests.get(url, headers=headers)
+
+        soup = BeautifulSoup(response.content, 'html.parser')
+        response.close()
+
+        main_div = soup.find_all('div', {'class': 'col'})[3]
+
+        items_div = main_div.find_all('div', {'class': 'product-item'})
+
+
+        theitdepot_products_data = defaultdict(dict)
+
+        count = 0
+
+        for item_div in items_div:
+
+            # Skip the item if it is out of stock
+            if "Out of Stock" in item_div.get_text():
+                continue
+
+            # Get the name
+            item_name_div = item_div.find('div', {'itemprop': 'name'})
+            item_name = item_name_div.find('a').get_text()
+            theitdepot_products_data[count]['item_name'] = item_name
+
+            # Rating is unavailable on the website
+            theitdepot_products_data[count]['item_rating'] = "Unavailable"
+
+            # Get the price
+
+            item_price = item_div.find('strong').get_text().strip()
+
+            theitdepot_products_data[count]['item_price'] = item_price
+
+
+            # Get the link
+            item_link = item_name_div.find('a')['href']
+            theitdepot_products_data[count]['item_link'] = "".join(["https://www.theitdepot.com/", item_link])
+
+            count += 1
+
+            if count == total_products_count:
+                return theitdepot_products_data
+
+        return theitdepot_products_data
+
+
+
+
+    # except Exception as e:
+    #     # Could not fetch data from MDComputers
+    #     return {}
+
+
 # t1 = time.time()
-# search("rtx 2060", 3)
+# search("mouse", 3)
 # t2 = time.time()
 # print("Time taken =", t2-t1)

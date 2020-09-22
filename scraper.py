@@ -6,32 +6,28 @@ from random import choice
 import re
 
 
-
 def search(product, total_products_count):
     # amazon_products_data = search_amazon(product, total_products_count)
     # flipkart_products_data = search_flipkart(product, total_products_count)
     # mdcomputers_products_data = search_mdcomputers(product, total_products_count)
-    # vedantcomputers_products_data = search_vedantcomputers(product, total_products_count)
     # neweggindia_products_data = search_neweggindia(product, total_products_count)
     # primeabgb_products_data = search_primeabgb(product, total_products_count)
-    theitdepot_products_data = search_theitdepot(product, total_products_count)
-
+    # theitdepot_products_data = search_theitdepot(product, total_products_count)
 
     master_data = {
-                   # 'amazon_products_data': amazon_products_data,
-                   # 'flipkart_products_data': flipkart_products_data,
-                   # 'mdcomputers_products_data': mdcomputers_products_data,
-                   # 'vedantcomputers_products_data': vedantcomputers_products_data,
-                   # 'neweggindia_products_data': neweggindia_products_data,
-                   # 'primeabgb_products_data': primeabgb_products_data,
-                     'theitdepot_products_data': theitdepot_products_data
-                   }
+        # 'amazon_products_data': amazon_products_data,
+        # 'flipkart_products_data': flipkart_products_data,
+        # 'mdcomputers_products_data': mdcomputers_products_data,
+        # 'neweggindia_products_data': neweggindia_products_data,
+        # 'primeabgb_products_data': primeabgb_products_data,
+        #  'theitdepot_products_data': theitdepot_products_data
+    }
 
     print(master_data)
 
 
 def search_amazon(product, total_products_count):
-    # try:
+    try:
 
         # Define headers for request
         user_agent_list = [
@@ -50,7 +46,6 @@ def search_amazon(product, total_products_count):
         response = requests.get(url, headers=headers)
 
         soup = BeautifulSoup(response.content, 'html.parser')
-
 
         main_div = soup.find_all('span', {'cel_widget_id': re.compile("^MAIN-SEARCH_RESULTS")})
         retry_count = 0
@@ -124,12 +119,13 @@ def search_amazon(product, total_products_count):
 
         return amazon_products_data
 
-    # except Exception as e:
-    #     # Could not fetch data from Amazon
-    #     return {}
+    except Exception as e:
+        # Could not fetch data from Amazon
+        return {}
+
 
 def search_flipkart(product, total_products_count):
-    # try:
+    try:
 
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
 
@@ -215,12 +211,13 @@ def search_flipkart(product, total_products_count):
 
         return flipkart_products_data
 
-    # except Exception as e:
-    #     # Could not fetch data from Flipkart
-    #     return {}
+    except Exception as e:
+        # Could not fetch data from Flipkart
+        return {}
+
 
 def search_mdcomputers(product, total_products_count):
-    # try:
+    try:
 
         word_list = product.replace(' ', '+')
         url = 'https://mdcomputers.in/index.php?category_id=0&search=' + word_list + '&submit_search=&route=product%2Fsearch'
@@ -273,108 +270,13 @@ def search_mdcomputers(product, total_products_count):
 
         return mdcomputers_products_data
 
-    # except Exception as e:
-    #     # Could not fetch data from MDComputers
-    #     return {}
+    except Exception as e:
+        # Could not fetch data from MDComputers
+        return {}
 
-'''
-def search_vedantcomputers(product, total_products_count):
-    # try:
-        
-        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36',
-                   'cookie': 'NVTC=248326808.0001.7wr7he7ix.1599927401.1599927401.1599927401.1; NID=9D6I4M9D2Q1j9D2Q6I; NSC_mc-xxx.ofxfhh.dpn-vsmibti=475ca3ddf9096b5394cdf2067cf96644e527b629071ac9e769a6067ee21d293c1b88d203; NV%5FW57=IND; NV%5FW62=en; NV%5FCONFIGURATION=#5%7B%22Sites%22%3A%7B%22USA%22%3A%7B%22Values%22%3A%7B%22w58%22%3A%22INR%22%7D%2C%22Exp%22%3A86400000000%7D%7D%7D; INGRESSCOOKIE=1599927405.297.1966.356529; NV_NVTCTIMESTAMP=1599927421'
-                   }
-
-        url_list = ['https://www.vedantcomputers.com/index.php?route=product/search&search=']
-        word_list = product.split()
-        for word in word_list:
-            url_list.append(word)
-            url_list.append('%20')
-
-        url_list = url_list[:-1]
-        url_list.append('&description=true&limit=25')
-        url = "".join(url_list)
-        # print(url)
-
-
-        scraper = cloudscraper.create_scraper(
-
-            interpreter='nodejs',
-            captcha={
-                'provider': 'anticaptcha',
-                'api_key': 'ab812f99fd5c16cb20e708e29559f76b'
-            }
-        )
-        response = scraper.get(url)
-
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        main_div = soup.find('div', {'class': 'main-products product-grid'})
-
-        if main_div is None:
-            # Not able to get results from main_div
-            print("Could not get results due to cloudfare protection")
-            return {}
-        items_div = main_div.find_all('div', {'class': 'product-thumb'})
-
-        vedantcomputers_products_data = defaultdict(dict)
-        count = 0
-        for item_div in items_div:
-
-            # Get the name
-            item_name = item_div.find('div', {'class': 'name'})
-            if item_name is None:
-                vedantcomputers_products_data[count]['item_name'] = 'Unavailable'
-            else:
-                vedantcomputers_products_data[count]['item_name'] = item_name.get_text().strip()
-
-            # Get the rating
-
-            # Check if rating is unavailable
-            item_rating = item_div.find('div', {'class': 'rating no-rating'})
-            if item_rating is not None:
-                vedantcomputers_products_data[count]['item_rating'] = 'Unavailable'
-            else:
-                item_rating_div = item_div.find('div', {'class': 'rating'})
-
-                # For rating we find the number of stars that are colored out of 5 stars
-                colored_stars = item_div.find_all('i', {'class': 'fa fa-star fa-stack-2x'})
-                item_rating = len(colored_stars)
-
-                vedantcomputers_products_data[count]['item_rating'] = "".join([str(item_rating), '/5'])
-
-            # Get the price
-
-            # Check for discounted new price
-            item_price = item_div.find('span', {'class': 'price-new'})
-
-            # Check for regular price if product is not on discount
-            if item_price is None:
-                item_price = item_div.find('span', {'class': 'price-normal'})
-            if item_price is None:
-                vedantcomputers_products_data[count]['item_price'] = 'Unavailable'
-            else:
-                vedantcomputers_products_data[count]['item_price'] = item_price.get_text().strip()[1:]
-
-            # Get the link
-            item_link_div = item_div.find('div', {'class': 'name'})
-
-            item_link = item_link_div.find('a')['href']
-            vedantcomputers_products_data[count]['item_link'] = item_link
-
-            count += 1
-            if count == total_products_count:
-                return vedantcomputers_products_data
-
-        return vedantcomputers_products_data
-
-    # except Exception as e:
-    #     # Could not fetch data from MDComputers
-    #     return {}
-'''
 
 def search_neweggindia(product, total_products_count):
-    # try:
+    try:
 
         # Had to add cookies to header to display india price
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36',
@@ -429,12 +331,13 @@ def search_neweggindia(product, total_products_count):
 
         return neweggindia_products_data
 
-    # except Exception as e:
-    #     # Could not fetch data from MDComputers
-    #     return {}
+    except Exception as e:
+        # Could not fetch data from MDComputers
+        return {}
+
 
 def search_primeabgb(product, total_products_count):
-    # try:
+    try:
 
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
 
@@ -499,16 +402,15 @@ def search_primeabgb(product, total_products_count):
             if count == total_products_count:
                 return primeabgb_products_data
 
-
         return primeabgb_products_data
 
-    # except Exception as e:
-    #     # Could not fetch data from MDComputers
-    #     return {}
+    except Exception as e:
+        # Could not fetch data from MDComputers
+        return {}
 
 
 def search_theitdepot(product, total_products_count):
-    # try:
+    try:
 
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36'}
 
@@ -522,7 +424,6 @@ def search_theitdepot(product, total_products_count):
         main_div = soup.find_all('div', {'class': 'col'})[3]
 
         items_div = main_div.find_all('div', {'class': 'product-item'})
-
 
         theitdepot_products_data = defaultdict(dict)
 
@@ -548,7 +449,6 @@ def search_theitdepot(product, total_products_count):
 
             theitdepot_products_data[count]['item_price'] = item_price
 
-
             # Get the link
             item_link = item_name_div.find('a')['href']
             theitdepot_products_data[count]['item_link'] = "".join(["https://www.theitdepot.com/", item_link])
@@ -560,15 +460,6 @@ def search_theitdepot(product, total_products_count):
 
         return theitdepot_products_data
 
-
-
-
-    # except Exception as e:
-    #     # Could not fetch data from MDComputers
-    #     return {}
-
-
-# t1 = time.time()
-# search("mouse", 3)
-# t2 = time.time()
-# print("Time taken =", t2-t1)
+    except Exception as e:
+        # Could not fetch data from The IT Depot
+        return {}

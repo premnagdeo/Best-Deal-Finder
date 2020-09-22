@@ -18,6 +18,7 @@ website_dictionary_mapping = {
     'theitdepot_checkbox': 'search_theitdepot'
 }
 
+
 @app.route("/data", methods=["POST"])
 def scrape():
     if request.form is not None:
@@ -36,7 +37,6 @@ def scrape():
             return jsonify({'error': 'No form data'}), 503
     else:
         return jsonify({'error': 'No form found in request'}), 503
-
 
 
 @app.route('/')

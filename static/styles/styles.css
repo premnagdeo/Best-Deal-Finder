@@ -12,8 +12,7 @@ body {
 	float: left;
 	height: 2rem;
 	width: 80%;
-	margin: 7.5px;
-	margin-left: 0px;
+	margin: 7.5px 7.5px 7.5px 0px;
 	padding: 12px;
 	font-size: 20px;
 	border: none;
@@ -65,18 +64,15 @@ body {
 
 #find_best_deal {
 	color: #0049B7;
-	margin: 10px;
-	margin-left: 0px;
+	margin: 10px 10px 10px 0px;
 	font-size: 3.5rem;
 }
 
 #select_websites {
 	color: #0049B7;
-	margin: 10px;
-	margin-left: 0px;
+	margin: 10px 10px 10px 0px;
 	font-size: 3rem;
 }
-
 
 .number_of_search_results {
 	width: 35%;
@@ -142,8 +138,6 @@ select:focus {
 
 .checkbox_label {
 	padding-left: 0;
-	font-weight: bold;
-	color: white;
 }
 
 .checkbox_div {
@@ -177,7 +171,6 @@ select:focus {
 	z-index: 0;
 	font: 12px/26px Arial, sans-serif;
 	font-weight: bold;
-
 }
 
 .checkbox_div label {
@@ -206,7 +199,6 @@ select:focus {
 	left: 43px;
 }
 
-
 .checkbox_label {
 	margin: auto;
 	margin-right: 1rem;
@@ -214,8 +206,9 @@ select:focus {
 	font-family: sans-serif;
 	color: white;
 	font-weight: bold;
-text-shadow: rgb(64, 116, 181) 2px 2px 0px, rgb(64, 116, 181) 2px -2px 0px, rgb(64, 116, 181) -2px 2px 0px, rgb(64, 116, 181) -2px -2px 0px, rgb(64, 116, 181) 2px 0px 0px, rgb(64, 116, 181) 0px 2px 0px, rgb(64, 116, 181) -2px 0px 0px, rgb(64, 116, 181) 0px -2px 0px;
+	text-shadow: rgb(64, 116, 181) 2px 2px 0px, rgb(64, 116, 181) 2px -2px 0px, rgb(64, 116, 181) -2px 2px 0px, rgb(64, 116, 181) -2px -2px 0px, rgb(64, 116, 181) 2px 0px 0px, rgb(64, 116, 181) 0px 2px 0px, rgb(64, 116, 181) -2px 0px 0px, rgb(64, 116, 181) 0px -2px 0px;
 }
+
 
 /* Checkbox css end*/
 
@@ -223,10 +216,9 @@ text-shadow: rgb(64, 116, 181) 2px 2px 0px, rgb(64, 116, 181) 2px -2px 0px, rgb(
 /* results css starts */
 
 #results_title {
-		color: #0049B7;
-		margin: 10px;
-		margin-left: 0px;
-		font-size: 2.7rem;
+	color: #0049B7;
+	margin: 10px 10px 10px 0px;
+	font-size: 2.7rem;
 }
 
 .results_div {
@@ -234,19 +226,17 @@ text-shadow: rgb(64, 116, 181) 2px 2px 0px, rgb(64, 116, 181) 2px -2px 0px, rgb(
 	margin-left: 0px;
 }
 
-.results_div > div {
+.results_div>div {
 	background-color: #494D5F;
 	margin-bottom: 40px;
 	padding: 10px;
 }
 
-
 .results_product_title {
-		color: #e5eaf5;
-		margin: 10px 5px 5px 0px;
-		font-size: 2rem;
+	color: #e5eaf5;
+	margin: 10px 5px 5px 0px;
+	font-size: 2rem;
 }
-
 
 .results_products_item_title {
 	color: white;
@@ -262,12 +252,12 @@ text-shadow: rgb(64, 116, 181) 2px 2px 0px, rgb(64, 116, 181) 2px -2px 0px, rgb(
 	display: block;
 }
 
-.error_text{
+.error_text {
 	color: #ff0000;
 	margin: 2px;
 	margin-left: 10px;
 	font-size: 1.5rem;
-
 }
+
 
 /* results css ends*/

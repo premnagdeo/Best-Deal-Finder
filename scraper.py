@@ -1,16 +1,10 @@
 import requests
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import time
 from collections import defaultdict
 from random import choice
 import re
 
-
-import cloudscraper
-import cfscrape
 
 
 def search(product, total_products_count):
@@ -283,6 +277,7 @@ def search_mdcomputers(product, total_products_count):
 def search_vedantcomputers(product, total_products_count):
     # try:
         return {}
+        '''
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.83 Safari/537.36',
                    'cookie': 'NVTC=248326808.0001.7wr7he7ix.1599927401.1599927401.1599927401.1; NID=9D6I4M9D2Q1j9D2Q6I; NSC_mc-xxx.ofxfhh.dpn-vsmibti=475ca3ddf9096b5394cdf2067cf96644e527b629071ac9e769a6067ee21d293c1b88d203; NV%5FW57=IND; NV%5FW62=en; NV%5FCONFIGURATION=#5%7B%22Sites%22%3A%7B%22USA%22%3A%7B%22Values%22%3A%7B%22w58%22%3A%22INR%22%7D%2C%22Exp%22%3A86400000000%7D%7D%7D; INGRESSCOOKIE=1599927405.297.1966.356529; NV_NVTCTIMESTAMP=1599927421'
                    }
@@ -373,7 +368,7 @@ def search_vedantcomputers(product, total_products_count):
     # except Exception as e:
     #     # Could not fetch data from MDComputers
     #     return {}
-
+        '''
 def search_neweggindia(product, total_products_count):
     # try:
 

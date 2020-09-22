@@ -259,7 +259,7 @@ text-shadow: rgb(64, 116, 181) 2px 2px 0px, rgb(64, 116, 181) 2px -2px 0px, rgb(
 	margin: 2px;
 	margin-left: 10px;
 	font-size: 1.3rem;
-
+	display: block;
 }
 
 .error_text{

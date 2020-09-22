@@ -206,8 +206,9 @@ $(document).ready(function () {
 
 					// Product Link
 					$(parent).append(
-						$('<div>').prop({
+						$('<a>').prop({
 							innerHTML: "Product Link: " + product_data['item_link'],
+							href: product_data['item_link'],
 							className: 'results_products_details'
 						})
 					);

@@ -57,6 +57,11 @@ $(document).ready(function () {
 			});
 
 
+			var csvrows = [];
+			create_csv(products_data);
+
+
+
 			function send_data(item) {
 				let query = {
 					search_query: search_query,
@@ -159,6 +164,8 @@ $(document).ready(function () {
 						})
 					);
 
+
+
 				}
 
 				function create_product_details_div(item_number, product_data, curr_checkbox_name) {
@@ -213,10 +220,45 @@ $(document).ready(function () {
 						})
 					);
 
+					let row = [[curr_checkbox_name], [item_number.toString()], product_data['item_name'], product_data['item_rating'], product_data['item_price'], product_data['item_link']];
+					csvrows.push(row.join(","));
+
+				}
+
+			}
+
+				function create_csv(products_data){
+					let csvheaders = [["Website"],	["Item Number"],	["Product Name"],	["Product Rating"],	["Product Price"],	["Product Link"]];
+					csvrows.push(csvheaders.join(","));
+
+
+				  $('.csv_div').append(
+				    $('<input>').prop({
+							type: "button",
+							value: "Download CSV",
+				      id: "csv_download_button",
+				      className: 'download_button'
+				    })
+				  );
+
+
+					$("#csv_download_button").on("click", function (e) {
+						console.log("DOWNLOAD FUNCTION ACTIVATED");
+						console.log(csvrows);
+						var csvstring = csvrows.join("%0A");
+						console.log(csvstring);
+						var a=document.createElement('a');
+						a.href = 'data:attachment/csv,' + csvstring;
+						a.target = '_blank';
+						a.download = 'myFile.csv';
+						document.body.appendChild(a);
+						a.click();
+					});
+
+
 				}
 
 
-			}
 
 		}
 

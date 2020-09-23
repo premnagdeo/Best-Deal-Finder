@@ -253,7 +253,7 @@ select:focus {
 }
 
 .error_text {
-	color: #ff0000;
+	color: black;
 	margin: 2px;
 	margin-left: 10px;
 	font-size: 1.5rem;

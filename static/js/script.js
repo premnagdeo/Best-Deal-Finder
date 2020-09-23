@@ -146,12 +146,12 @@ $(document).ready(function () {
 				function create_product_title_div(checkbox_name) {
 
 					let website_dict = {
-						'amazon_checkbox': 'Amazon:',
-						'flipkart_checkbox': 'Flipkart:',
-						'mdcomputers_checkbox': 'MD Computers:',
-						'theitdepot_checkbox': 'The IT Depot:',
-						'neweggindia_checkbox': 'Newegg India:',
-						'primeabgb_checkbox': 'Prime ABGB:'
+						'amazon_checkbox': 'Amazon',
+						'flipkart_checkbox': 'Flipkart',
+						'mdcomputers_checkbox': 'MD Computers',
+						'theitdepot_checkbox': 'The IT Depot',
+						'neweggindia_checkbox': 'Newegg India',
+						'primeabgb_checkbox': 'Prime ABGB'
 					};
 					let website_name = website_dict[checkbox_name];
 
@@ -220,7 +220,24 @@ $(document).ready(function () {
 						})
 					);
 
-					let row = [[curr_checkbox_name], [item_number.toString()], product_data['item_name'], product_data['item_rating'], product_data['item_price'], product_data['item_link']];
+
+					let website_dict = {
+						'amazon_checkbox': 'Amazon',
+						'flipkart_checkbox': 'Flipkart',
+						'mdcomputers_checkbox': 'MD Computers',
+						'theitdepot_checkbox': 'The IT Depot',
+						'neweggindia_checkbox': 'Newegg India',
+						'primeabgb_checkbox': 'Prime ABGB'
+					};
+
+					let row = [
+										 ['"' + website_dict[curr_checkbox_name] + '"'],
+										 ['"' + item_number.toString() + '"'],
+										 ['"' + product_data['item_name'] + '"'],
+										 ['"' + product_data['item_rating'] + '"'],
+										 ['"' + product_data['item_price'] + '"'],
+										 ['"' + product_data['item_link'] + '"']
+									 ];
 					csvrows.push(row.join(","));
 
 				}
@@ -228,7 +245,7 @@ $(document).ready(function () {
 			}
 
 				function create_csv(products_data){
-					let csvheaders = [["Website"],	["Item Number"],	["Product Name"],	["Product Rating"],	["Product Price"],	["Product Link"]];
+					let csvheaders = [["Website"],	["Item Number"],	["Product Name"],	["Product Rating"],	["Product Price (in rupees)"],	["Product Link"]];
 					csvrows.push(csvheaders.join(","));
 
 
@@ -243,14 +260,13 @@ $(document).ready(function () {
 
 
 					$("#csv_download_button").on("click", function (e) {
-						console.log("DOWNLOAD FUNCTION ACTIVATED");
-						console.log(csvrows);
-						var csvstring = csvrows.join("%0A");
-						console.log(csvstring);
+						let filename = search_query + ' deals.csv'
+						var csvstring = csvrows.join("\n");
+						// csvstring.replace(/"/g, '\\"');
 						var a=document.createElement('a');
-						a.href = 'data:attachment/csv,' + csvstring;
+						a.href = "data:attachment/csv;charset=utf-8,%EF%BB%BF" + escape(csvstring);
 						a.target = '_blank';
-						a.download = 'myFile.csv';
+						a.download = filename;
 						document.body.appendChild(a);
 						a.click();
 					});

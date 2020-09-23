@@ -62,7 +62,6 @@ $(document).ready(function () {
 			var csvrows = [];
 
 
-
 			function send_data(item) {
 				let query = {
 					search_query: search_query,
@@ -87,9 +86,9 @@ $(document).ready(function () {
 						else {
 							success_function(checkbox_name, response);
 						}
-						if (document.getElementById('csv_download_button') == null){
-						create_csv(products_data);
-					}
+						if (document.getElementById('csv_download_button') == null) {
+							create_csv(products_data);
+						}
 					},
 					error: function (error) {
 						let checkbox_name = data_to_send['name'];
@@ -168,7 +167,6 @@ $(document).ready(function () {
 					);
 
 
-
 				}
 
 				function create_product_details_div(item_number, product_data, curr_checkbox_name) {
@@ -234,49 +232,55 @@ $(document).ready(function () {
 					};
 
 					let row = [
-										 ['"' + website_dict[curr_checkbox_name] + '"'],
-										 ['"' + item_number.toString() + '"'],
-										 ['"' + product_data['item_name'] + '"'],
-										 ['"' + product_data['item_rating'] + '"'],
-										 ['"' + product_data['item_price'] + '"'],
-										 ['"' + product_data['item_link'] + '"']
-									 ];
+						['"' + website_dict[curr_checkbox_name] + '"'],
+						['"' + item_number.toString() + '"'],
+						['"' + product_data['item_name'] + '"'],
+						['"' + product_data['item_rating'] + '"'],
+						['"' + product_data['item_price'] + '"'],
+						['"' + product_data['item_link'] + '"']
+					];
 					csvrows.push(row.join(","));
 
 				}
 
 			}
 
-				function create_csv(products_data){
-					let csvheaders = [["Website"],	["Item Number"],	["Product Name"],	["Product Rating"],	["Product Price (in rupees)"],	["Product Link"]];
-					csvrows.push(csvheaders.join(","));
+			function create_csv(products_data) {
+				let csvheaders = [
+					["Website"],
+					["Item Number"],
+					["Product Name"],
+					["Product Rating"],
+					["Product Price (in rupees)"],
+					["Product Link"]
+				];
+				csvrows.push(csvheaders.join(","));
 
 
-				  $('.csv_div').append(
-				    $('<input>').prop({
-							type: "button",
-							value: "Download CSV",
-				      id: "csv_download_button",
-				      className: 'download_button'
-				    })
-				  );
+				$('.csv_div').append(
+					$('<input>').prop({
+						type: "button",
+						value: "Download CSV",
+						id: "csv_download_button",
+						className: 'download_button'
+					})
+				);
 
 
-					$("#csv_download_button").on("click", function (e) {
-						let filename = search_query + ' deals.csv'
-						var csvstring = csvrows.join("\n");
-						// csvstring.replace(/"/g, '\\"');
-						var a=document.createElement('a');
-						a.href = "data:attachment/csv;charset=utf-8,%EF%BB%BF" + escape(csvstring);
-						a.target = '_blank';
-						a.download = filename;
-						document.body.appendChild(a);
-						a.click();
-					});
+				$("#csv_download_button").on("click", function (e) {
+					let filename = search_query + ' deals.csv'
+					var csvstring = csvrows.join("\n");
+					// csvstring.replace(/"/g, '\\"');
+					var a = document.createElement('a');
+					a.href = "data:attachment/csv;charset=utf-8,%EF%BB%BF" + escape(csvstring);
+					a.target = '_blank';
+					a.download = filename;
+					document.body.appendChild(a);
+					a.click();
+				});
 
 
-				}
-
+			}
 
 
 		}

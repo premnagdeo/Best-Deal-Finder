@@ -23,6 +23,11 @@ $(document).ready(function () {
 				innerHTML: 'Results:'
 			})
 		);
+
+		if (document.getElementById('csv_download_button') != null) {
+			document.getElementById('csv_download_button').remove();
+		}
+
 		// Check connection with flask server
 		var form_data = $('form').serializeArray();
 		$.ajax({
@@ -51,14 +56,10 @@ $(document).ready(function () {
 			var received_response_count = 0;
 
 			// Send all ajax requests
-			$.when(form_data.forEach(send_data)).then(function () {
-				console.log("All complete");
-				console.log(products_data);
-			});
+			form_data.forEach(send_data);
 
 
 			var csvrows = [];
-			create_csv(products_data);
 
 
 
@@ -86,7 +87,9 @@ $(document).ready(function () {
 						else {
 							success_function(checkbox_name, response);
 						}
-
+						if (document.getElementById('csv_download_button') == null){
+						create_csv(products_data);
+					}
 					},
 					error: function (error) {
 						let checkbox_name = data_to_send['name'];

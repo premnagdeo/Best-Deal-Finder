@@ -16,6 +16,8 @@ Currently in development.
 #### - Front End Complete
 #### - Process ajax responses
 #### - Create display divs dynamically
+#### - Create CSV File for download
+
 
 ## TODO
-Create CSV File for download
+ ¯\\_(ツ)_/¯

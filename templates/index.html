@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/styles.css') }}">
 		<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
 		<title>Best Deal Finder</title>
@@ -13,7 +12,7 @@
 			<h1 id="find_best_deal"> Finding the best deal is now just a click away! </h1>
 			<div class="search_div">
 				<div class="search_query">
-					<input type="text" id="search_bar" class="search_bar" name="search_bar" size="50rem" class="search_box" placeholder=" What are you looking for today?">
+					<input type="text" id="search_bar" class="search_bar" name="search_bar" placeholder=" What are you looking for today?">
 					<input type="image" src="{{ url_for('static', filename='img/search_button.png')}}" alt="Search Button" id="search_button" class="search_button">
 				</div>
 				<div class="number_of_search_results">
@@ -89,6 +88,9 @@
 			<div class="social_media">
 				<a href="https://linkedin.com/in/premnagdeo" target="_blank"> <i class="fa fa-linkedin"></i></a>
 				<a href="https://github.com/premnagdeo" target="_blank"> <i class="fa fa-github"></i></a>
+				<a href="https://www.codechef.com/users/premnagdeo" target="_blank"> <i class="iconify" data-icon="simple-icons:codechef" data-inline="false"></i></a>
+				<a href="https://leetcode.com/premnagdeo/" target="_blank"> <i class="iconify" data-icon="simple-icons:leetcode" data-inline="false"></i></a>
+				<a href="https://www.hackerrank.com/premnagdeo" target="_blank"> <i class="fab fa-hackerrank"></i></a>
 				<a href="mailto:premnagdeo@gmail.com" target="_blank"> <i class="fa fa-envelope"></i></a>
 			</div>
 			<span>Made with <span class="heart">❤️</span> by <a href="https://www.linkedin.com/in/premnagdeo/" target="_blank" class="footer_name">Prem Nagdeo</a>
@@ -96,6 +98,8 @@
 		</footer>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="{{ url_for('static', filename='js/script.js') }}"> </script>
+		<script src="https://kit.fontawesome.com/5e6b5ddfea.js" crossorigin="anonymous"></script>
+		<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 	</body>
 </html>

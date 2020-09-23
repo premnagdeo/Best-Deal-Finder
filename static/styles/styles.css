@@ -133,7 +133,8 @@ select:focus {
 .selection_container {
 	display: grid;
 	grid-template-columns: auto auto auto auto;
-	margin: auto;
+	margin: auto 0;
+	width: 80%;
 }
 
 .checkbox_label {
@@ -285,15 +286,13 @@ select:focus {
 	background-color: #2196f3;
 	box-shadow: 0 0 4px #999;
 	outline: none;
-	margin: 0 auto;
+	margin: 0 auto 30px auto;
 	display: block;
-	;
-}
-
-.download_button {
 	background-position: center;
 	transition: background 0.8s;
 }
+
+.download_button {}
 
 .download_button:hover {
 	background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
@@ -326,6 +325,29 @@ footer {
 	padding: 1rem 0;
 }
 
+
+/* change icon color */
+
+.fa-linkedin {
+	color: #0049B7;
+}
+
+.fa-github {
+	color: #0049B7;
+}
+
+.fa-hackerrank {
+	color: #0049B7;
+}
+
+.fa-envelope {
+	color: #0049B7;
+}
+
+.iconify {
+	color: #0049B7;
+}
+
 footer .heart {
 	color: red;
 }
@@ -334,7 +356,7 @@ footer .heart {
 	border-bottom: 3.5px solid white;
 }
 
-header .footer_name:hover,
+.footer_name:hover,
 footer .footer_name {
 	border-bottom: 2px solid white;
 }

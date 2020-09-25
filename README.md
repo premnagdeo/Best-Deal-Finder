@@ -17,7 +17,8 @@ Currently in development.
 #### - Process ajax responses
 #### - Create display divs dynamically
 #### - Create CSV File for download
+#### - Heroku Deployment
 
 
 ## TODO
-- Heroku Deployment
+Media Queries

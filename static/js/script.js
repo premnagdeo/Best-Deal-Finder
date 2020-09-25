@@ -55,11 +55,23 @@ $(document).ready(function () {
 			var products_data = new Object();
 			var received_response_count = 0;
 
+			//For csv file
+			var csvrows = [];
+			let csvheaders = [
+				["Website"],
+				["Item Number"],
+				["Product Name"],
+				["Product Rating"],
+				["Product Price (in Rupees)"],
+				["Product Link"]
+			];
+			csvrows.push(csvheaders.join(","));
+
+
 			// Send all ajax requests
 			form_data.forEach(send_data);
 
 
-			var csvrows = [];
 
 
 			function send_data(item) {
@@ -246,16 +258,6 @@ $(document).ready(function () {
 			}
 
 			function create_csv(products_data) {
-				let csvheaders = [
-					["Website"],
-					["Item Number"],
-					["Product Name"],
-					["Product Rating"],
-					["Product Price (in rupees)"],
-					["Product Link"]
-				];
-				csvrows.push(csvheaders.join(","));
-
 
 				$('.csv_div').append(
 					$('<input>').prop({

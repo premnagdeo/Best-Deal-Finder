@@ -20,4 +20,4 @@ Currently in development.
 
 
 ## TODO
- ¯\\_(ツ)_/¯
+- Heroku Deployment

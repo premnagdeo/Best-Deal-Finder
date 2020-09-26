@@ -392,6 +392,10 @@ footer .footer_name {
 		font-size: 18px;
 	}
 
+	.search_bar:focus::placeholder {
+	  color: transparent;
+	}
+
 	.search_button{
 		position: relative;
 		top: 20px;

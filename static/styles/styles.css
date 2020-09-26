@@ -368,7 +368,7 @@ footer .footer_name {
 
 /* Media Query starts */
 
-/* smartphones, iPhone, portrait 480x320 phones */
+
 @media (max-width:875px) {
 	body {
 		margin: 10px;
@@ -411,7 +411,7 @@ footer .footer_name {
 	margin: auto auto;
 	}
 	#select_websites {
-    font-size: 2.35rem;
+    font-size: 2.25rem;
 	}
 	.checkbox_label {
 	  font-size: 1.65rem;

@@ -46,7 +46,7 @@ body {
 	width: 45%;
 }
 
-.search_query:hover {
+.search_query:hover{
 	width: 55%;
 }
 
@@ -225,6 +225,7 @@ select:focus {
 .results_div {
 	margin: 10px;
 	margin-left: 0px;
+	word-wrap: break-word;
 }
 
 .results_div>div {
@@ -363,3 +364,63 @@ footer .footer_name {
 
 
 /* Footer css ends */
+
+
+/* Media Query starts */
+
+/* smartphones, iPhone, portrait 480x320 phones */
+@media (max-width:875px) {
+	body {
+		margin: 10px;
+	}
+	.search_div {
+		width: 100%;
+		display: block;
+	}
+
+	.search_query {
+		width: 100%;
+		display: flex;
+		font-size: 16px;
+	}
+	.search_query:hover{
+		width: 100%;
+	}
+
+	.search_bar{
+		width: 100%;
+		font-size: 18px;
+	}
+
+	.search_button{
+		position: relative;
+		top: 20px;
+	}
+
+  #find_best_deal {
+	  font-size: 2.5rem;
+	}
+
+	.number_of_search_results {
+	width: 100%;
+	font-size: 25px;
+	margin: 10px auto;
+	text-align: center;
+	}
+	.select_results{
+	margin: auto auto;
+	}
+	#select_websites {
+    font-size: 2.35rem;
+	}
+	.checkbox_label {
+	  font-size: 1.65rem;
+	}
+
+	.selection_container {
+		grid-template-columns: auto auto;
+		width: 90%;
+	}
+
+
+/* Media Query ends */

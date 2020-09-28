@@ -18,7 +18,8 @@ Currently in development.
 #### - Create display divs dynamically
 #### - Create CSV File for download
 #### - Heroku Deployment
+#### - Media Queries
 
 
 ## TODO
-Media Queries
+Update readme

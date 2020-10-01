@@ -17,7 +17,7 @@ Stores available for price comparison:
 - Newegg India
 - Prime ABGB
 
-<img src="https://github.com/premnagdeo/Best-Deal-Finder/blob/master/readme_images/desktop_screenshot.png" width="750"> &nbsp;&nbsp;&nbsp;&nbsp;  <img src="https://github.com/premnagdeo/Best-Deal-Finder/blob/master/readme_images/mobile_screenshot.png" width="150">
+<img src="https://github.com/premnagdeo/Best-Deal-Finder/blob/master/readme_images/desktop_screenshot.png" width="700"> &nbsp;&nbsp;&nbsp;&nbsp;  <img src="https://github.com/premnagdeo/Best-Deal-Finder/blob/master/readme_images/mobile_screenshot.png" width="130">
 
 
 ## Getting Started

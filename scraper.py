@@ -303,7 +303,6 @@ def search_neweggindia(product, total_products_count):
             ad_content = item_div.find('a', {'class': 'txt-ads-box theme-gray'})
             if sponsored_div is not None or ad_content is not None:
                 continue
-
             # Get the name
             item_name = item_div.find('a', {'class': 'item-title'})
             neweggindia_products_data[count]['item_name'] = item_name.get_text().strip()
@@ -318,8 +317,11 @@ def search_neweggindia(product, total_products_count):
 
             # Get the price
             item_price = item_div.find('li', {'class': 'price-current'})
-            item_price = item_price.find('strong').get_text().strip().replace(',', '')
-            neweggindia_products_data[count]['item_price'] = item_price
+            if not item_price:
+                neweggindia_products_data[count]['item_price'] = "Unavailable"
+            else:
+                item_price = item_price.get_text().split()[1]
+                neweggindia_products_data[count]['item_price'] = item_price
 
             # Get the link
             item_link = item_div.find('a', {'class': 'item-title'})['href']

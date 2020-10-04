@@ -72,8 +72,6 @@ $(document).ready(function () {
 			form_data.forEach(send_data);
 
 
-
-
 			function send_data(item) {
 				let query = {
 					search_query: search_query,
@@ -138,6 +136,7 @@ $(document).ready(function () {
 						})
 					);
 
+					console.log("Error Checkbox = curr_checkbox_name"  + ' AJAX Response = ' + curr_response);
 
 				}
 

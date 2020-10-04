@@ -136,7 +136,7 @@ $(document).ready(function () {
 						})
 					);
 
-					console.log("Error Checkbox = curr_checkbox_name"  + ' AJAX Response = ' + curr_response);
+					console.log("Error Checkbox = " + curr_checkbox_name + " No Results");
 
 				}
 
@@ -153,6 +153,12 @@ $(document).ready(function () {
 						})
 					);
 
+					console.log("Error Checkbox = " + curr_checkbox_name);
+					console.log("AJAX Response:");
+
+					for (let [key, value] of Object.entries(curr_response)) {
+					  console.log(`${key}: ${value}`);
+					}
 
 				}
 

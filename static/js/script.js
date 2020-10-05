@@ -34,7 +34,7 @@ $(document).ready(function () {
 			url: '/check_connection',
 			type: 'POST',
 			success: function (response) {
-				console.log(response);
+				// console.log(response);
 			},
 			error: function (error) {
 				console.log(error);
@@ -136,7 +136,7 @@ $(document).ready(function () {
 						})
 					);
 
-					console.log("Error Checkbox = " + curr_checkbox_name + " No Results");
+					// console.log("Error Checkbox = " + curr_checkbox_name + " No Results");
 
 				}
 
@@ -153,12 +153,8 @@ $(document).ready(function () {
 						})
 					);
 
-					console.log("Error Checkbox = " + curr_checkbox_name);
-					console.log("AJAX Response:");
+					console.log("Error Checkbox = " + curr_checkbox_name + 'AJAX Response = ' + curr_response);
 
-					for (let [key, value] of Object.entries(curr_response)) {
-					  console.log(`${key}: ${value}`);
-					}
 
 				}
 

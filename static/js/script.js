@@ -198,7 +198,7 @@ $(document).ready(function () {
 					// Product Name
 					$(parent).append(
 						$('<div>').prop({
-							innerHTML: "Product Name: " + product_data['item_name'],
+							innerHTML: "<div class='results_products_item_subtitle'>Product Name: </div>" + product_data['item_name'],
 							className: 'results_products_details'
 						})
 					);
@@ -206,13 +206,13 @@ $(document).ready(function () {
 					// Product Rating
 					$(parent).append(
 						$('<div>').prop({
-							innerHTML: "Product Rating: " + product_data['item_rating'],
+							innerHTML: "<div class='results_products_item_subtitle'>Product Rating: </div>" + product_data['item_rating'],
 							className: 'results_products_details'
 						})
 					);
 
 					// Product Price
-					let text = "Product Price: "
+					let text = "<div class='results_products_item_subtitle'>Product Price: </div>"
 					if (product_data['item_price'] != "Unavailable") {
 						text += "₹"
 					}
@@ -228,7 +228,7 @@ $(document).ready(function () {
 					// Product Link
 					$(parent).append(
 						$('<a>').prop({
-							innerHTML: "Product Link: " + product_data['item_link'],
+							innerHTML: "<div class='results_products_item_subtitle'>Product Link: </div>" + product_data['item_link'],
 							href: product_data['item_link'],
 							className: 'results_products_details'
 						})

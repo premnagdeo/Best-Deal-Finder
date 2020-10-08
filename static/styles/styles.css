@@ -235,25 +235,25 @@ select:focus {
 }
 
 .results_product_title {
-	color: #e5eaf5;
+	color: white;
 	margin: 10px 5px 5px 0px;
 	font-size: 2rem;
 }
 
 .results_products_item_title {
-	color: white;
+	color: #c3f7ff;
 	margin: 5px;
 	font-size: 1.7rem;
 }
 
+.results_products_item_subtitle {
+	color: #8BEFFF;
+	font-size: 1.5rem;
+	font-weight: bold;
+	margin-right: 10px;
+	display: inline-block;
+}
 
-/* horizontal line after every item
-.results_products_item_title:before {
-    content: " ";
-    display: block;
-    border-top: 2px solid black;
-  }
-*/
 
 .results_products_details {
 	color: #00DDFF;

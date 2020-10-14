@@ -1,11 +1,10 @@
-# Best-Deal-Finder
-
+# Best-Deal-Finder <img src="https://github.com/premnagdeo/Best-Deal-Finder/blob/master/static/img/favicon.png" width="35"> 
 
 Are you excited for the launch of the RTX 3000 series? Or planning to buy new clothes? Maybe a new phone?
 
 Get ready for the holiday shopping season!
 
-Here's a Flask app to help you find the best deals across various online stores.
+Here's a Flask web app to help you find the best deals across various online stores.
 
 Try it yourself here: https://best-deal-finder.herokuapp.com/
 

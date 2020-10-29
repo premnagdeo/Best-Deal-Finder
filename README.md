@@ -7,6 +7,7 @@ Get ready for the holiday shopping season!
 Here's a Flask web app to help you find the best deals across various online stores.
 
 Try it yourself here: https://best-deal-finder.herokuapp.com/
+### Currently down due to Heroku limits. Will be back up on 1<sup>st</sup> November 2020.
 
 Stores available for price comparison include:
 - Amazon India

@@ -44,7 +44,7 @@ Install all the requirements with pip as follows:
 ### Clone
 Clone this repo to your local machine using 
 
-` https://github.com/premnagdeo/Best-Deal-Finder.git `
+` git clone https://github.com/premnagdeo/Best-Deal-Finder.git `
 
 
 ### Usage
